@@ -1,0 +1,13 @@
+{
+  "name": "basic",
+  "private": true,
+  "scripts": {
+    "build": "gridsome build",
+    "develop": "gridsome develop",
+    "explore": "gridsome explore"
+  },
+  "dependencies": {
+    "@allanchain/gridsome-plugin-pwa": "link:../../",
+    "gridsome": "^0.7.0"
+  }
+}
