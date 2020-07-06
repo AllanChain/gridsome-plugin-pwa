@@ -2,6 +2,14 @@
 
 status: not so stable
 
+- [Overview](#overview)
+- [Installation](#installation)
+  - [1. Add to Dependencies](#1-add-to-dependencies)
+  - [2. Register as Gridsome Plugin](#2-register-as-gridsome-plugin)
+    - [Configuration](#configuration)
+    - [Sample Config](#sample-config)
+  - [3. Register service worker](#3-register-service-worker)
+
 ## Overview
 
 This plugin is based on [gridsome-plugin-pwa](https://github.com/rishabh3112/gridsome-plugin-pwa) and created to be a better alternative. it serves manifest and no-op service worker in development, use `workbox-webpack-plugin`, just as `vue-cli` does
@@ -21,6 +29,8 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
 ```
 
 ### 2. Register as Gridsome Plugin
+
+#### Configuration
 
 - **name**
 
@@ -95,6 +105,7 @@ Options below are different to `cli-plugin-pwa`
 
   - Default: `themeColor`
 
+#### Sample Config
 
 ```js
   plugins: [
