@@ -24,7 +24,10 @@ module.exports = {
         gcmSenderId: undefined,
         workboxOptions: {
           cacheId: 'awesome-pwa',
-          skipWaiting: true
+          skipWaiting: true,
+          exclude: [
+            /manifest\.json/
+          ]
         }
       }
     }

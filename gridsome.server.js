@@ -23,20 +23,22 @@ function Plugin (api, options) {
         )
       }
 
-      const defaultOptions = {
-        exclude: [
-          // https://github.com/gridsome/gridsome/blob/2538985/gridsome/lib/webpack/utils.js#L5
-          /styles(\.\w{8})?\.js$/,
-          /manifest\/client.json$/,
-          /assets\/icons/
-        ]
-      }
+      const essentialExclude = [
+        // https://github.com/gridsome/gridsome/blob/2538985/gridsome/lib/webpack/utils.js#L5
+        /styles(\.\w{8})?\.js$/,
+        /manifest\/client.json$/,
+        /assets\/icons/
+      ]
 
       const defaultGenerateSWOptions = workboxPluginMode === 'GenerateSW' ? {
         cacheId: api.config.siteName
       } : {}
 
-      const workBoxConfig = Object.assign(defaultOptions, defaultGenerateSWOptions, options.workboxOptions)
+      const workBoxConfig = Object.assign(defaultGenerateSWOptions, options.workboxOptions)
+
+      workBoxConfig.exclude = workBoxConfig.exclude
+        ? essentialExclude.concat(workBoxConfig.exclude)
+        : essentialExclude
 
       webpackConfig
         .plugin('workbox')
