@@ -24,10 +24,10 @@ function Plugin (api, options) {
 
       const defaultOptions = {
         exclude: [
-          /\.map$/,
-          /img\/icons\//,
-          /favicon\.ico$/,
-          /^manifest.*\.js?$/
+          // https://github.com/gridsome/gridsome/blob/2538985/gridsome/lib/webpack/utils.js#L5
+          /styles(\.\w{8})?\.js$/,
+          /manifest\/client.json$/,
+          /assets\/icons/
         ]
       }
 
