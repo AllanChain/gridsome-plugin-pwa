@@ -1,6 +1,6 @@
 {
   "name": "@allanchain/gridsome-plugin-pwa",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Yet another PWA plugin for Gridsome",
   "main": "gridsome.server.js",
   "author": "AllanChain",
@@ -19,7 +19,7 @@
   "files": [
     "gridsome.*.js",
     "lib/*.js"
-   ],
+  ],
   "devDependencies": {
     "eslint": "^7.4.0",
     "eslint-config-standard": "^14.1.1",
