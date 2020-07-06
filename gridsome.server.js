@@ -3,14 +3,15 @@ const ManifestPlugin = require('./lib/manifestPlugin')
 const createNoopServiceWorkerMiddleware = require('./lib/noopServiceWorkerMiddleware')
 
 function Plugin (api, options) {
-  api.chainWebpack((webpackConfig, context) => {
-    if (context.isClient) {
-      webpackConfig
-        .plugin('pwa-manifest')
-        .use(ManifestPlugin, [options])
-    }
+  api.chainWebpack((webpackConfig, { isServer, isProd }) => {
+    if (isServer) return
+
+    webpackConfig
+      .plugin('pwa-manifest')
+      .use(ManifestPlugin, [options])
+
     // generate /service-worker.js in production mode
-    if (process.env.NODE_ENV === 'production') {
+    if (isProd) {
       // Default to GenerateSW mode, though InjectManifest also might be used.
       const workboxPluginMode = options.workboxPluginMode || 'GenerateSW'
       const workboxWebpackModule = require('workbox-webpack-plugin')
