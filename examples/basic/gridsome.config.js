@@ -21,7 +21,11 @@ module.exports = {
         icon: 'src/favicon.png', // must be provided like 'src/favicon.png'
         msTileImage: '',
         msTileColor: '#666600',
-        gcmSenderId: undefined
+        gcmSenderId: undefined,
+        workboxOptions: {
+          cacheId: 'awesome-pwa',
+          skipWaiting: true
+        }
       }
     }
   ]

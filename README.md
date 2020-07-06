@@ -46,3 +46,10 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 ```
+
+```js
+export default function (Vue, { router, head, isClient }) {
+  if (isClient) require('./registerServiceWorker')
+  // ...
+}
+```

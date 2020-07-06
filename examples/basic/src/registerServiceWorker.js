@@ -1,8 +1,5 @@
 import { register } from 'register-service-worker'
 
-// register anyway for demo purpose, you may need
-// if (process.env.NODE_ENV === 'production') {
-
 register('/service-worker.js', {
   ready () {
     console.log(
