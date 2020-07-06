@@ -1,4 +1,3 @@
-const path = require('path')
 const ManifestPlugin = require('./lib/manifestPlugin')
 const createNoopServiceWorkerMiddleware = require('./lib/noopServiceWorkerMiddleware')
 
@@ -54,7 +53,7 @@ function Plugin (api, options) {
 
   api.setClientOptions({
     title: options.title,
-    manifestPath: path.join(pathPrefix, options.manifestPath),
+    manifestPath: pathPrefix + options.manifestPath,
     statusBarStyle: options.statusBarStyle,
     themeColor: options.themeColor,
     icon: options.icon,
