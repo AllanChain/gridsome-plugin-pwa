@@ -16,6 +16,10 @@
   "keywords": [
     "gridsome-plugin"
   ],
+  "files": [
+    "gridsome.*.js",
+    "lib/*.js"
+   ],
   "devDependencies": {
     "eslint": "^7.4.0",
     "eslint-config-standard": "^14.1.1",
