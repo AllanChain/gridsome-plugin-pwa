@@ -22,24 +22,102 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
 
 ### 2. Register as Gridsome Plugin
 
+- **name**
+
+  - Default: "siteName" field in gridsome config
+
+    Used as the value for the `apple-mobile-web-app-title` meta tag in the generated HTML.
+
+- **themeColor**
+
+  - Default: `'#00a672'`
+
+- **msTileColor**
+
+  - Default: `'#00a672'`
+
+- **appleMobileWebAppCapable**
+
+  - Default: `'no'`
+
+    This defaults to `'no'` because iOS before 11.3 does not have proper PWA support. See [this article](https://medium.com/@firt/dont-use-ios-web-app-meta-tag-irresponsibly-in-your-progressive-web-apps-85d70f4438cb) for more details.
+
+- **appleMobileWebAppStatusBarStyle**
+
+  - Default: `'default'`
+
+- **manifestPath**
+
+  - Default: `'manifest.json'`
+
+    The path of app’s manifest. If the path is an URL, the plugin won't generate a manifest.json in the dist directory during the build.
+
+- **manifestOptions**
+
+  - Default: `{}`
+
+    The object will be used to generate the `manifest.json`
+
+    If the following attributes are not defined in the object, default options will be used instead.
+      - name: `name`
+      - short_name: `name`
+      - start_url: `'.'`
+      - display: `'standalone'`
+      - theme_color: `themeColor`
+
+Options below are different to `cli-plugin-pwa`
+
+---
+
+- **icon**
+
+  - Default: `'src/favicon.png'`
+
+    The icon file to generate icons of all sizes.
+
+- **maskableIcon**
+
+  - Default: `false`
+
+    Whether the icon provided is maskable.
+
+- **svgFavicon**
+
+  - Default: `undefined`
+
+    Standard Meta Tags. Requires favicon.ico fallback
+
+- **appleMaskIcon**
+
+  - Default: `undefined`
+
+- **appleMaskIconColor**
+
+  - Default: `themeColor`
+
+
 ```js
-plugins: [
+  plugins: [
     {
       use: '@allanchain/gridsome-plugin-pwa',
       options: {
-        title: 'Gridsome',
-        startUrl: '/',
-        display: 'standalone',
-        statusBarStyle: 'default',
+        name: 'Awesome Gridsome',
+        manifestOptions: {
+          short_name: 'Gridsome',
+          description: 'Gridsome is awesome!',
+          display: 'standalone',
+          background_color: '#ffffff',
+          gcm_sender_id: undefined,
+          start_url: '/',
+          categories: ['education'],
+          lang: 'en-GB',
+          dir: 'auto'
+        },
+        appleMobileWebAppStatusBarStyle: 'default',
         manifestPath: 'manifest.json',
-        shortName: 'Gridsome',
-        themeColor: '#666600',
-        backgroundColor: '#ffffff',
-        icon: 'src/favicon.png', // path in your project
-        msTileImage: '',
-        msTileColor: '#666600',
-        gcmSenderId: undefined,
-        workboxOptions: {  // options passed to workbox-webpack-plugin
+        icon: 'src/favicon.png',
+        msTileColor: '#00a672',
+        workboxOptions: { // options passed to workbox-webpack-plugin
           cacheId: 'awesome-pwa',
           skipWaiting: true,
           exclude: [

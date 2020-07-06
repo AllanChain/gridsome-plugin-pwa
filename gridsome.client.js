@@ -1,13 +1,11 @@
-const clientConfig = function (Vue, options, context) {
-  const { head } = context
-
-  const iconsDir = 'assets/static/'
+const clientConfig = function (Vue, options, { head }) {
+  const iconsDir = options.pathPrefix + 'assets/icons/'
   const iconName = options.icon.split('/').slice(-1)[0]
-  const msTileImage = `/${iconsDir}${iconName}-144x144.png`
+  const msTileImage = `${iconsDir}${iconName}-144x144.png`
 
   head.link.push({
     rel: 'manifest',
-    href: options.manifestPath.replace('\\', '/')
+    href: options.pathPrefix + options.manifestPath
   })
 
   if (options.svgFavicon) {
@@ -33,7 +31,7 @@ const clientConfig = function (Vue, options, context) {
     head.link.push({
       rel: 'mask-icon',
       href: options.appleMaskIcon,
-      color: options.appleMaskIconColor
+      color: options.appleMaskIconColor || options.themeColor
     })
   }
 
@@ -44,17 +42,17 @@ const clientConfig = function (Vue, options, context) {
 
   head.meta.push({
     name: 'apple-mobile-web-app-capable',
-    content: 'yes'
+    content: options.appleMobileWebAppCapable
   })
 
   head.meta.push({
     name: 'apple-mobile-web-app-status-bar-style',
-    content: options.statusBarStyle
+    content: options.appleMobileWebAppStatusBarStyle
   })
 
   head.meta.push({
     name: 'apple-mobile-web-app-title',
-    content: options.title
+    content: options.name
   })
 
   head.meta.push({
