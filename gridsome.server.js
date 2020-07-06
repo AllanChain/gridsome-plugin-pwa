@@ -51,7 +51,6 @@ function Plugin (api, options) {
 
   api.setClientOptions({
     title: options.title,
-    serviceWorkerPath: path.join(pathPrefix, options.serviceWorkerPath),
     manifestPath: path.join(pathPrefix, options.manifestPath),
     statusBarStyle: options.statusBarStyle,
     themeColor: options.themeColor,
@@ -69,7 +68,6 @@ Plugin.defaultOptions = () => ({
   display: 'standalone',
   statusBarStyle: 'default',
   manifestPath: 'manifest.json',
-  serviceWorkerPath: 'service-worker.js',
   shortName: 'Gridsome',
   themeColor: '#666600',
   backgroundColor: '#ffffff',
