@@ -53,7 +53,6 @@ function Plugin (api, options) {
     ...options,
     pathPrefix: api.config.pathPrefix + '/'
   })
-  console.log(api.config.pathPrefix)
 }
 
 Plugin.defaultOptions = () => ({
