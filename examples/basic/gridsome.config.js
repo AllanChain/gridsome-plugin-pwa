@@ -10,18 +10,22 @@ module.exports = {
     {
       use: '@allanchain/gridsome-plugin-pwa',
       options: {
-        title: 'Gridsome',
-        startUrl: '/',
-        display: 'standalone',
-        statusBarStyle: 'default',
+        name: 'Awesome Gridsome',
+        manifestOptions: {
+          short_name: 'Gridsome',
+          description: 'Gridsome is awesome!',
+          display: 'standalone',
+          background_color: '#ffffff',
+          gcm_sender_id: undefined,
+          start_url: '/',
+          categories: ['education'],
+          lang: 'en-GB',
+          dir: 'auto'
+        },
+        appleMobileWebAppStatusBarStyle: 'default',
         manifestPath: 'manifest.json',
-        shortName: 'Gridsome',
-        themeColor: '#666600',
-        backgroundColor: '#ffffff',
-        icon: 'src/favicon.png', // must be provided like 'src/favicon.png'
-        msTileImage: '',
-        msTileColor: '#666600',
-        gcmSenderId: undefined,
+        icon: 'src/favicon.png',
+        msTileColor: '#00a672',
         workboxOptions: {
           cacheId: 'awesome-pwa',
           skipWaiting: true,

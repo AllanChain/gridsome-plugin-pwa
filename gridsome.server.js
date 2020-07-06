@@ -49,33 +49,23 @@ function Plugin (api, options) {
     app.use(createNoopServiceWorkerMiddleware())
   })
 
-  const pathPrefix = api.config.pathPrefix + '/'
-
   api.setClientOptions({
-    title: options.title,
-    manifestPath: pathPrefix + options.manifestPath,
-    statusBarStyle: options.statusBarStyle,
-    themeColor: options.themeColor,
-    icon: options.icon,
-    appleMaskIcon: options.appleMaskIcon,
-    appleMaskIconColor: options.appleMaskIconColor,
-    msTileColor: options.msTileColor,
-    svgFavicon: options.svgFavicon
+    ...options,
+    pathPrefix: api.config.pathPrefix + '/'
   })
+  console.log(api.config.pathPrefix)
 }
 
 Plugin.defaultOptions = () => ({
-  title: 'Gridsome',
-  startUrl: '/',
-  display: 'standalone',
-  statusBarStyle: 'default',
+  name: 'Gridsome',
+  appleMobileWebAppStatusBarStyle: 'default',
+  appleMobileWebAppCapable: 'no',
   manifestPath: 'manifest.json',
-  shortName: 'Gridsome',
-  themeColor: '#666600',
-  backgroundColor: '#ffffff',
-  icon: '',
-  msTileImage: '',
-  msTileColor: '#666600',
+  themeColor: '#00a672',
+  manifestOptions: {},
+  icon: 'src/favicon.png',
+  maskableIcon: false,
+  msTileColor: '#00a672',
   workboxOptions: {
     skipWaiting: true
   }
