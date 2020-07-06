@@ -18,7 +18,7 @@ yarn add register-service-worker
 import { register } from 'register-service-worker'
 
 if (process.env.NODE_ENV === 'production') {
-  register(`/service-worker.js`, {
+  register('/service-worker.js', {
     ready () {
       console.log(
         'App is being served from cache by a service worker.\n' +
