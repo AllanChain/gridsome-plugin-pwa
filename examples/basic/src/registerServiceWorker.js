@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import { register } from 'register-service-worker'
 
 register('/service-worker.js', {
