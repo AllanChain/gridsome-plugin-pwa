@@ -1,8 +1,10 @@
 # @allanchain/gridsome-plugin-pwa
 
+status: not so stable
+
 ## Overview
 
-This plugin is based on [gridsome-plugin-pwa](https://github.com/rishabh3112/gridsome-plugin-pwa) and created to be a better alternative.
+This plugin is based on [gridsome-plugin-pwa](https://github.com/rishabh3112/gridsome-plugin-pwa) and created to be a better alternative. it serves manifest and no-op service worker in development, use `workbox-webpack-plugin`, just as `vue-cli` does
 
 It tries to be more similar to `cli-plugin-pwa`, but makes use of gridsome's image processing power.
 
