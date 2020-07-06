@@ -10,7 +10,7 @@
     "url": "https://github.com/AllanChain/gridsome-plugin-pwa"
   },
   "scripts": {
-    "lint": "eslint --fix .",
+    "lint": "eslint --fix . --ext .js",
     "test": "echo \"tests not created\""
   },
   "keywords": [
