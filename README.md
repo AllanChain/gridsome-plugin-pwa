@@ -1,6 +1,10 @@
 # @allanchain/gridsome-plugin-pwa
 
-status: not so stable
+[![npm (scoped)](https://img.shields.io/npm/v/@allanchain/gridsome-plugin-pwa)](https://www.npmjs.com/package/@allanchain/gridsome-plugin-pwa)
+![License](https://img.shields.io/github/license/AllanChain/gridsome-plugin-pwa)
+![Run Tests](https://github.com/AllanChain/gridsome-plugin-pwa/workflows/Run%20Tests/badge.svg)
+
+:warning: **status: writing tests**
 
 - [Overview](#overview)
 - [Installation](#installation)
