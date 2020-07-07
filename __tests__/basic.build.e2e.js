@@ -46,10 +46,11 @@ describe('icon', () => {
 
 describe('sevice worker', () => {
   const sw = dist('service-worker.js')
+  let swContent
   it('exists', () => {
     expect(fs.existsSync(sw)).toBeTruthy()
+    swContent = fs.readFileSync(sw, 'utf8')
   })
-  const swContent = fs.readFileSync(sw, 'utf8')
   it('uses correct cache id', () => {
     expect(swContent).toMatch('setCacheNameDetails({prefix:"awesome-pwa"})')
   })
