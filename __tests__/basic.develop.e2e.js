@@ -21,7 +21,31 @@ afterAll(() => {
   developProcess.kill('SIGINT')
 })
 
-it('serves manifest.json', async () => {
-  const res = await get('/manifest.json')
-  expect(res.status).toBe(200)
-}, 30000)
+describe('manifest.json', () => {
+  let res
+  it('is served', async () => {
+    res = await get('/manifest.json')
+    expect(res.status).toBe(200)
+  }, 30000) // first request takes some time
+  it('looks not bad', () => {
+    expect(res.data.short_name).toBe('Gridsome')
+  })
+})
+
+describe('icon', () => {
+  it('is served', async () => {
+    const res = await get('/assets/icons/favicon-144x144.png')
+    expect(res.status).toBe(200)
+  })
+})
+
+describe('service worker', () => {
+  let res
+  it('is served', async () => {
+    res = await get('/service-worker.js')
+    expect(res.status).toBe(200)
+  })
+  it('is no-op sw', () => {
+    expect(res.data).toMatch('no-op')
+  })
+})
