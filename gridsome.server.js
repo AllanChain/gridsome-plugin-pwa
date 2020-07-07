@@ -11,8 +11,7 @@ function Plugin (api, options) {
 
     // generate /service-worker.js in production mode
     if (isProd) {
-      // Default to GenerateSW mode, though InjectManifest also might be used.
-      const workboxPluginMode = options.workboxPluginMode || 'GenerateSW'
+      const workboxPluginMode = options.workboxPluginMode
       const workboxWebpackModule = require('workbox-webpack-plugin')
 
       if (!(workboxPluginMode in workboxWebpackModule)) {
@@ -65,6 +64,7 @@ Plugin.defaultOptions = () => ({
   icon: 'src/favicon.png',
   maskableIcon: false,
   msTileColor: '#00a672',
+  workboxPluginMode: 'GenerateSW',
   workboxOptions: {
     skipWaiting: true
   }
