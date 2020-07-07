@@ -29,7 +29,10 @@ jobs:
         cd examples/basic
         yarn link @allanchain/gridsome-plugin-pwa
         yarn --frozen-lockfile
-        cd ../..
+        cd node_modules/sharp
+        yarn link
+        cd ../../../..
+        yarn link sharp
         yarn --frozen-lockfile
     - name: Run Tests
       run: yarn test
