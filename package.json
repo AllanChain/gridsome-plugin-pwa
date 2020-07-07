@@ -11,7 +11,9 @@
   },
   "scripts": {
     "lint": "eslint --fix . --ext .js",
-    "test": "echo \"tests not created\""
+    "test": "jest",
+    "test:build": "jest __tests__/basic.build.e2e.js --runInBand --detectOpenHandles",
+    "test:develop": "jest __tests__/basic.develop.e2e.js --runInBand --detectOpenHandles"
   },
   "keywords": [
     "gridsome-plugin"
@@ -21,12 +23,14 @@
     "lib/*.js"
   ],
   "devDependencies": {
+    "axios": "^0.19.2",
     "eslint": "^7.4.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-standard": "^4.0.1"
+    "eslint-plugin-standard": "^4.0.1",
+    "jest": "^26.1.0"
   },
   "dependencies": {
     "core-js": "^3.6.5",

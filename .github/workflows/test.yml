@@ -1,0 +1,38 @@
+name: Run Tests
+
+on:
+  push:
+    paths-ignore:
+      - '**.md'
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Use Node.js 12.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.x'
+    - uses: actions/cache@v2
+      with:
+        path: |
+          node_modules
+          examples/basic/node_modules
+        key: node-${{ hashFiles('yarn.lock') }}-${{ hashFiles('examples/basic/yarn.lock') }}
+        restore-keys: |
+          node-
+    - name: Install and Link Packages
+      run: |
+        yarn link
+        cd examples/basic
+        yarn link @allanchain/gridsome-plugin-pwa
+        yarn --frozen-lockfile
+        cd node_modules/sharp
+        yarn link
+        cd ../../../..
+        yarn link sharp
+        yarn --frozen-lockfile
+    - name: Run Tests
+      run: yarn test
