@@ -13,6 +13,7 @@
     - [Configuration](#configuration)
     - [Sample Config](#sample-config)
   - [3. Register service worker](#3-register-service-worker)
+- [Developing and Testing](#developing-and-testing)
 - [LICENSE](#license)
 
 ## Overview
@@ -219,6 +220,28 @@ export default function (Vue, { router, head, isClient }) {
   // ...
 }
 ```
+
+## Developing and Testing
+
+```bash
+# link this plugin to example project
+yarn link
+cd examples/basic
+yarn link @allanchain/gridsome-plugin-pwa
+# install example project dependencies
+yarn --frozen-lockfile
+# link peer dependency sharp
+cd node_modules/sharp
+yarn link
+cd ../../../..
+yarn link sharp
+# install plugin dependencies
+yarn --frozen-lockfile
+```
+
+Now you can make modifications to this plugin and run `yarn run develop` in example project to see the effect.
+
+Or run `yarn test` in root dir of this project to see test results.
 
 ## LICENSE
 
