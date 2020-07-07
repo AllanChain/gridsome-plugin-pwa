@@ -9,6 +9,7 @@ status: not so stable
     - [Configuration](#configuration)
     - [Sample Config](#sample-config)
   - [3. Register service worker](#3-register-service-worker)
+- [LICENSE](#license)
 
 ## Overview
 
@@ -214,3 +215,7 @@ export default function (Vue, { router, head, isClient }) {
   // ...
 }
 ```
+
+## LICENSE
+
+[MIT](LICENSE)
