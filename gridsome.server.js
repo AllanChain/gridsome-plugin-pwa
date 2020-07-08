@@ -7,7 +7,7 @@ function Plugin (api, options) {
 
     webpackConfig
       .plugin('pwa-manifest')
-      .use(ManifestPlugin, [options])
+      .use(ManifestPlugin, [{ name: api.config.siteName, ...options }])
 
     // generate /service-worker.js in production mode
     if (isProd) {
@@ -55,7 +55,6 @@ function Plugin (api, options) {
 }
 
 Plugin.defaultOptions = () => ({
-  name: 'Gridsome',
   appleMobileWebAppStatusBarStyle: 'default',
   appleMobileWebAppCapable: 'no',
   manifestPath: 'manifest.json',
