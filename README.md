@@ -92,7 +92,21 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
 
 - **manifestOptions**
 
-  - Default: `{}`
+  - Default: 
+    - `{}` if `InjectManifest`
+    - if `GenerateSW`
+
+      you can override `/assets\/icons/` if provide `exclude` yourself, but cannot override first two because thay are to prevent error.
+
+      ```js
+      {
+        exclude: [
+          /styles(\.\w{8})?\.js$/,
+          /manifest\/client.json$/,
+          /assets\/icons/
+        ]
+      }
+      ```
 
     The object will be used to generate the `manifest.json`
 
