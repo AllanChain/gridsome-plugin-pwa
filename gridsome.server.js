@@ -48,9 +48,7 @@ Plugin.defaultOptions = () => ({
   maskableIcon: false,
   msTileColor: '#00a672',
   workboxPluginMode: 'GenerateSW',
-  workboxOptions: {
-    skipWaiting: true
-  }
+  workboxOptions: {}
 })
 
 module.exports = Plugin
