@@ -15,7 +15,11 @@ function Plugin (api, options) {
         .plugin('workbox')
         .use(
           workboxWebpackModule[options.workboxPluginMode],
-          [generateWorkboxConfig(api.config.siteName, options)]
+          [generateWorkboxConfig(
+            api.config.siteName,
+            options.workboxPluginMode,
+            options.workboxOptions
+          )]
         )
     }
   })
