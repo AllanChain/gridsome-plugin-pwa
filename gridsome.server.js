@@ -24,7 +24,10 @@ function Plugin (api, options) {
       const essentialExclude = [
         // https://github.com/gridsome/gridsome/blob/2538985/gridsome/lib/webpack/utils.js#L5
         /styles(\.\w{8})?\.js$/,
-        /manifest\/client.json$/,
+        /manifest\/client.json$/
+      ]
+
+      const defaultExclude = [
         /assets\/icons/
       ]
 
@@ -36,7 +39,7 @@ function Plugin (api, options) {
 
       workBoxConfig.exclude = workBoxConfig.exclude
         ? essentialExclude.concat(workBoxConfig.exclude)
-        : essentialExclude
+        : essentialExclude.concat(defaultExclude)
 
       webpackConfig
         .plugin('workbox')

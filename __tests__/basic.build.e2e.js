@@ -59,10 +59,15 @@ describe('sevice worker', () => {
   it('uses correct cache id', () => {
     expect(swContent).toMatch('setCacheNameDetails({prefix:"awesome-pwa"})')
   })
-  it('ignores correctly', () => {
+  it('does essential ignore', () => {
     expect(swContent).not.toMatch('client.json')
-    expect(swContent).not.toMatch('manifest.json')
     expect(swContent).not.toMatch('js/style')
+  })
+  it('does configured ignore', () => {
+    expect(swContent).not.toMatch('manifest.json')
+  })
+  it('does not ignore default if configured', () => {
+    expect(swContent).toMatch('assets/icons')
   })
   it('includes prefetch assets', () => {
     expect(swContent).toMatch('/assets/js/app')
