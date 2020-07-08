@@ -90,6 +90,10 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
 
     The path of app’s manifest. If the path is an URL, the plugin won't generate a manifest.json in the dist directory during the build.
 
+Options below are different to `cli-plugin-pwa`
+
+---
+
 - **manifestOptions**
 
   - Default: 
@@ -116,10 +120,6 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
       - start_url: `'.'`
       - display: `'standalone'`
       - theme_color: `themeColor`
-
-Options below are different to `cli-plugin-pwa`
-
----
 
 - **icon**
 
