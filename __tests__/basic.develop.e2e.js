@@ -4,18 +4,30 @@ const axios = require('axios')
 
 let developProcess
 const context = path.join(__dirname, '..', 'examples', 'basic')
-const get = async path => await axios.get('http://localhost:8080' + path)
-const sleep = time => new Promise(resolve => setTimeout(resolve, time))
+let hostUrl = 'http://localhost:8080'
+const get = async path => await axios.get(hostUrl + path)
 
-beforeAll(async () => {
+beforeAll(() => {
   // Spawning process to easily kill it
   developProcess = spawn(
     path.join(context, 'node_modules', '.bin', 'gridsome'),
     ['develop'],
     { cwd: context }
   )
-  await sleep(10000)
-}, 10100)
+  developProcess.stdout.setEncoding('utf-8')
+  return new Promise(resolve => {
+    developProcess.stdout.on('data', data => {
+      // Remove color control code
+      /* eslint-disable-next-line no-control-regex */
+      data = data.replace(/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]/g, '')
+      const result = data.match(/Local: *(http:\/\/localhost:\d+)/)
+      if (result !== null) {
+        hostUrl = result[1]
+        resolve()
+      }
+    })
+  })
+}, 30000)
 
 afterAll(() => {
   developProcess.kill('SIGINT')
