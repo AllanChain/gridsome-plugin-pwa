@@ -1,10 +1,8 @@
-const ManifestPlugin = require('./lib/manifestPlugin')
-const createNoopServiceWorkerMiddleware = require('./lib/noopServiceWorkerMiddleware')
-
 function Plugin (api, options) {
   api.chainWebpack((webpackConfig, { isServer, isProd }) => {
     if (isServer) return
 
+    const ManifestPlugin = require('./lib/manifestPlugin')
     webpackConfig
       .plugin('pwa-manifest')
       .use(ManifestPlugin, [{ name: api.config.siteName, ...options }])
@@ -23,7 +21,7 @@ function Plugin (api, options) {
   })
 
   api.configureServer(app => {
-    app.use(createNoopServiceWorkerMiddleware())
+    app.use(require('./lib/noopServiceWorkerMiddleware')())
   })
 
   api.setClientOptions({
