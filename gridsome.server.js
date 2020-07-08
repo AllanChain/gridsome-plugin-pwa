@@ -60,7 +60,11 @@ Plugin.defaultOptions = () => ({
   appleMobileWebAppCapable: 'no',
   manifestPath: 'manifest.json',
   themeColor: '#00a672',
-  manifestOptions: {},
+  manifestOptions: {
+    start_url: '.',
+    display: 'standalone',
+    background_color: '#000000'
+  },
   icon: 'src/favicon.png',
   maskableIcon: false,
   msTileColor: '#00a672',
