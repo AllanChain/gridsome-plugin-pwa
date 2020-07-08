@@ -5,12 +5,11 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 module.exports = {
-  siteName: 'Gridsome',
+  siteName: 'Awesome Gridsome',
   plugins: [
     {
       use: '@allanchain/gridsome-plugin-pwa',
       options: {
-        name: 'Awesome Gridsome',
         manifestOptions: {
           short_name: 'Gridsome',
           description: 'Gridsome is awesome!',

@@ -22,7 +22,6 @@ describe('manifest.json', () => {
     manifest = JSON.parse(fs.readFileSync(manifestFilePath))
   })
   it('contains configured fields', () => {
-    expect(manifest.name).toBe('Awesome Gridsome')
     expect(manifest.short_name).toBe('Gridsome')
     expect(manifest.start_url).toBe('/')
     expect(manifest.icons).toBeInstanceOf(Array)
@@ -34,6 +33,7 @@ describe('manifest.json', () => {
     })
   })
   it('honors default options', () => {
+    expect(manifest.name).toBe('Awesome Gridsome')
     expect(manifest.background_color).toBe('#000000')
     expect(manifest.theme_color).toBe('#00a672')
   })
