@@ -11,39 +11,14 @@ function Plugin (api, options) {
 
     // generate /service-worker.js in production mode
     if (isProd) {
-      const workboxPluginMode = options.workboxPluginMode
       const workboxWebpackModule = require('workbox-webpack-plugin')
-
-      if (!(workboxPluginMode in workboxWebpackModule)) {
-        throw new Error(
-          `${workboxPluginMode} is not a supported Workbox webpack plugin mode. ` +
-          `Valid modes are: ${Object.keys(workboxWebpackModule).join(', ')}`
-        )
-      }
-
-      const essentialExclude = [
-        // https://github.com/gridsome/gridsome/blob/2538985/gridsome/lib/webpack/utils.js#L5
-        /styles(\.\w{8})?\.js$/,
-        /manifest\/client.json$/
-      ]
-
-      const defaultExclude = [
-        /assets\/icons/
-      ]
-
-      const defaultGenerateSWOptions = workboxPluginMode === 'GenerateSW' ? {
-        cacheId: api.config.siteName
-      } : {}
-
-      const workBoxConfig = Object.assign(defaultGenerateSWOptions, options.workboxOptions)
-
-      workBoxConfig.exclude = workBoxConfig.exclude
-        ? essentialExclude.concat(workBoxConfig.exclude)
-        : essentialExclude.concat(defaultExclude)
-
+      const generateWorkboxConfig = require('./lib/generateWorkboxConfig')
       webpackConfig
         .plugin('workbox')
-        .use(workboxWebpackModule[workboxPluginMode], [workBoxConfig])
+        .use(
+          workboxWebpackModule[options.workboxPluginMode],
+          [generateWorkboxConfig(api.config.siteName, options)]
+        )
     }
   })
 
