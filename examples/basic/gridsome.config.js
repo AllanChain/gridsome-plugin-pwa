@@ -15,7 +15,6 @@ module.exports = {
           short_name: 'Gridsome',
           description: 'Gridsome is awesome!',
           display: 'standalone',
-          background_color: '#ffffff',
           gcm_sender_id: undefined,
           start_url: '/',
           categories: ['education'],

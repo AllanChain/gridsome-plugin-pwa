@@ -16,11 +16,12 @@ beforeAll(async () => {
 
 describe('manifest.json', () => {
   const manifestFilePath = dist('manifest.json')
+  let manifest
   it('exists', () => {
     expect(fs.existsSync(manifestFilePath)).toBeTruthy()
+    manifest = JSON.parse(fs.readFileSync(manifestFilePath))
   })
   it('contains configured fields', () => {
-    const manifest = JSON.parse(fs.readFileSync(manifestFilePath))
     expect(manifest.name).toBe('Awesome Gridsome')
     expect(manifest.short_name).toBe('Gridsome')
     expect(manifest.start_url).toBe('/')
@@ -31,6 +32,10 @@ describe('manifest.json', () => {
       sizes: '192x192',
       purpose: 'any'
     })
+  })
+  it('honors default options', () => {
+    expect(manifest.background_color).toBe('#000000')
+    expect(manifest.theme_color).toBe('#00a672')
   })
 })
 
