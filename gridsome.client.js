@@ -1,11 +1,11 @@
 const clientConfig = function (Vue, options, { head }) {
-  const iconsDir = options.pathPrefix + 'assets/icons/'
+  const iconsDir = options.publicPath + 'assets/icons/'
   const iconName = options.icon.split('/').slice(-1)[0]
   const msTileImage = `${iconsDir}${iconName}-144x144.png`
 
   head.link.push({
     rel: 'manifest',
-    href: options.pathPrefix + options.manifestPath
+    href: options.publicPath + options.manifestPath
   })
 
   if (options.svgFavicon) {

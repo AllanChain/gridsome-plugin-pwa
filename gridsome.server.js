@@ -30,7 +30,7 @@ function Plugin (api, options) {
 
   api.setClientOptions({
     ...options,
-    pathPrefix: api.config.pathPrefix + '/'
+    publicPath: api.config.publicPath
   })
 }
 
