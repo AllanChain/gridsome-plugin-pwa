@@ -1,4 +1,4 @@
-const clientConfig = function (Vue, options, { head }) {
+module.exports = function (Vue, options, { head }) {
   const iconsDir = options.publicPath + 'assets/icons/'
   const iconName = options.icon.split('/').slice(-1)[0]
   const msTileImage = `${iconsDir}${iconName}-144x144.png`
@@ -72,5 +72,3 @@ const clientConfig = function (Vue, options, { head }) {
     content: msTileImage
   })
 }
-
-export default clientConfig
