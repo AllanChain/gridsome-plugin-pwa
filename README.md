@@ -53,6 +53,22 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
   guide can help you choose between the two modes.
 
 - **workboxOptions**
+  
+  - Default:
+    - `{}` if `InjectManifest`
+    - if `GenerateSW`
+
+      you can override `/assets\/icons/` if provide `exclude` yourself, but cannot override first two because thay are to prevent error.
+
+      ```js
+      {
+        exclude: [
+          /styles(\.\w{8})?\.js$/,
+          /manifest\/client.json$/,
+          /assets\/icons/
+        ]
+      }
+      ```
 
   These options are passed on through to the underlying `workbox-webpack-plugin`.
 
@@ -90,27 +106,16 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
 
     The path of app’s manifest. If the path is an URL, the plugin won't generate a manifest.json in the dist directory during the build.
 
-Options below are different to `cli-plugin-pwa`
-
----
-
 - **manifestOptions**
 
   - Default: 
-    - `{}` if `InjectManifest`
-    - if `GenerateSW`
-
-      you can override `/assets\/icons/` if provide `exclude` yourself, but cannot override first two because thay are to prevent error.
-
-      ```js
-      {
-        exclude: [
-          /styles(\.\w{8})?\.js$/,
-          /manifest\/client.json$/,
-          /assets\/icons/
-        ]
-      }
-      ```
+    ```js
+    {
+      start_url: '.',
+      display: 'standalone',
+      background_color: '#000000'
+    }
+    ```
 
     The object will be used to generate the `manifest.json`
 
