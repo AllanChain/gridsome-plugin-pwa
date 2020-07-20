@@ -1,11 +1,13 @@
 function Plugin (api, options) {
+  options = Object.assign({ name: api.config.siteName }, options)
+
   api.chainWebpack((webpackConfig, { isServer, isProd }) => {
     if (isServer) return
 
     const ManifestPlugin = require('./lib/manifestPlugin')
     webpackConfig
       .plugin('pwa-manifest')
-      .use(ManifestPlugin, [{ name: api.config.siteName, ...options }])
+      .use(ManifestPlugin, [options])
 
     // generate /service-worker.js in production mode
     if (isProd) {
