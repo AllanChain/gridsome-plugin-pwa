@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`works with zero config 1`] = `"{\\"head\\":{\\"meta\\":[{\\"name\\":\\"theme-color\\",\\"content\\":\\"#00a672\\"},{\\"name\\":\\"apple-mobile-web-app-capable\\",\\"content\\":\\"no\\"},{\\"name\\":\\"apple-mobile-web-app-status-bar-style\\",\\"content\\":\\"default\\"},{\\"name\\":\\"apple-mobile-web-app-title\\",\\"content\\":\\"Awesome Gridsome\\"},{\\"name\\":\\"application-name\\",\\"content\\":\\"Awesome Gridsome\\"},{\\"name\\":\\"msapplication-TileColor\\",\\"content\\":\\"#00a672\\"},{\\"name\\":\\"msapplication-TileImage\\",\\"content\\":\\"/gridsome/assets/icons/favicon.png-144x144.png\\"}],\\"link\\":[{\\"rel\\":\\"manifest\\",\\"href\\":\\"/gridsome/manifest.json\\"}]}}"`;
