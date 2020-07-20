@@ -106,7 +106,7 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
 
   - Default: `'manifest.json'`
 
-    The path of app’s manifest. If the path is an URL, the plugin won't generate a manifest.json in the dist directory during the build.
+    The path of app’s manifest. Different to `vue-cli`, currently you can only use the generated manifest.
 
 - **manifestOptions**
 
