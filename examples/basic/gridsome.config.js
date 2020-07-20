@@ -6,6 +6,7 @@
 
 module.exports = {
   siteName: 'Awesome Gridsome',
+  pathPrefix: '/gridsome',
   plugins: [
     {
       use: '@allanchain/gridsome-plugin-pwa',
