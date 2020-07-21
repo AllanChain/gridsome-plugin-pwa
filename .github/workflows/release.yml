@@ -16,7 +16,8 @@ jobs:
           fetch-depth: 0
       - name: Generate Changelog
         run: |
-          npm install -g conventional-changelog-cli
+          yarn global add conventional-changelog-cli
+          export PATH="$HOME/.yarn/bin:$PATH"
           conventional-changelog -r 2 -p angular > .changelog
       - name: Create Release
         id: create_release

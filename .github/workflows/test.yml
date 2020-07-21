@@ -6,6 +6,8 @@ on:
       - '**.md'
     branches:
       - '**'
+    tags-ignore:
+      - '**'
 
 jobs:
   test:
