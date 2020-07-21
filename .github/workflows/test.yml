@@ -4,6 +4,10 @@ on:
   push:
     paths-ignore:
       - '**.md'
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
 
 jobs:
   test:

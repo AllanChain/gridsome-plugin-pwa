@@ -6,10 +6,12 @@ const defaultsDeep = require('lodash/defaultsDeep')
 const context = path.join(__dirname, '..', 'examples', 'basic')
 process.chdir(context)
 
-const manifest = userOptions => generateManifest({
-  name: 'Awesome Gridsome',
-  ...defaultsDeep(userOptions, defaultOptions())
-})
+const manifest = userOptions => generateManifest(
+  Object.assign(
+    { name: 'Awesome Gridsome' },
+    defaultsDeep(userOptions, defaultOptions())
+  )
+)
 
 describe('Generate Manifest', () => {
   it('works with zero config', () => {

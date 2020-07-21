@@ -1,9 +1,8 @@
-# node modules
 node_modules/
 
-# VS Code configurations
 .vscode/
 
-# Built files
-/files
-/index.js
+yarn-error.log
+
+# module packs
+allanchain-gridsome-plugin-pwa-v*.tgz

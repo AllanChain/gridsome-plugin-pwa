@@ -38,6 +38,8 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
 
 #### Configuration
 
+> This plugin should work with zero config (you still nead step 3) if your icon file is `src/favicon.png`
+
 - **workboxPluginMode**
 
   This allows you to the choose between the two modes supported by the underlying
@@ -104,7 +106,7 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
 
   - Default: `'manifest.json'`
 
-    The path of app’s manifest. If the path is an URL, the plugin won't generate a manifest.json in the dist directory during the build.
+    The path of app’s manifest. Different to `vue-cli`, currently you can only use the generated manifest.
 
 - **manifestOptions**
 
@@ -130,7 +132,7 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
 
   - Default: `'src/favicon.png'`
 
-    The icon file to generate icons of all sizes.
+    The icon file to generate icons of all sizes. It is a relative **file path**, not a relative URL.
 
 - **maskableIcon**
 

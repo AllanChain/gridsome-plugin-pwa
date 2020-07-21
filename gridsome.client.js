@@ -57,7 +57,7 @@ module.exports = function (Vue, options, { head }) {
 
   head.meta.push({
     name: 'application-name',
-    content: options.title
+    content: options.name
   })
 
   if (options.msTileColor) {
