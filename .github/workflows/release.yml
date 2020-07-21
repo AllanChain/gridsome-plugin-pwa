@@ -18,7 +18,6 @@ jobs:
         run: |
           yarn global add conventional-changelog-cli
           export PATH="$HOME/.yarn/bin:$PATH"
-          echo $PATH
           conventional-changelog -r 2 -p angular > .changelog
       - name: Create Release
         id: create_release
