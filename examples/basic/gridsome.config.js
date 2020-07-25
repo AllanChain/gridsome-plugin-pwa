@@ -42,6 +42,7 @@ const options = {
 module.exports = {
   siteName: 'Awesome Gridsome',
   pathPrefix: '/gridsome',
+  outputDir: 'gridsome',
   plugins: [
     {
       use: '@allanchain/gridsome-plugin-pwa',
