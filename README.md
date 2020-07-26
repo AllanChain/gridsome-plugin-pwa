@@ -4,7 +4,7 @@
 ![License](https://img.shields.io/github/license/AllanChain/gridsome-plugin-pwa)
 ![Run Tests](https://github.com/AllanChain/gridsome-plugin-pwa/workflows/Run%20Tests/badge.svg)
 
-:warning: **status: writing tests**
+:warning: **status: not so stable, contributions welcome**
 
 - [Overview](#overview)
 - [Installation](#installation)
