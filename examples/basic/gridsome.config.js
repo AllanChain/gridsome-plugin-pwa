@@ -33,7 +33,7 @@ const options = {
     workboxOptions: {
       swSrc: './src/service-worker.js',
       additionalManifestEntries: [
-        '/index.html'
+        '/gridsome/index.html'
       ]
     }
   }
