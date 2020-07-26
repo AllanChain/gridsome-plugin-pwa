@@ -2,7 +2,7 @@ const path = require('path')
 const fs = require('fs')
 
 const context = path.join(__dirname, '..', 'examples', 'basic')
-const dist = (...file) => path.join(context, 'dist', ...file)
+const dist = (...file) => path.join(context, 'gridsome', ...file)
 
 process.chdir(context)
 

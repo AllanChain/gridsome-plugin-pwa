@@ -32,6 +32,13 @@ describe('Generate Workbox Config', () => {
         swSrc: 'src/sw.js'
       }
     })
-    expect(config).toEqual({ swSrc: 'src/sw.js' })
+    expect(config).toEqual({
+      swSrc: 'src/sw.js',
+      exclude: [
+        /styles(\.\w{8})?\.js$/,
+        /manifest\/client.json$/,
+        /assets\/icons/
+      ]
+    })
   })
 })
