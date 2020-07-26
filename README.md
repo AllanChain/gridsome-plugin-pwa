@@ -156,6 +156,10 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
 
 #### Sample Config
 
+You can also checkout [example gridsome app](examples/basic/gridsome.config.js).
+
+`GenerateSW` mode:
+
 ```js
   plugins: [
     {
@@ -188,6 +192,21 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
     }
   ]
 ```
+
+`InjectManifest` mode:
+
+```js
+{
+  workboxPluginMode: 'InjectManifest',
+  workboxOptions: {
+    swSrc: './src/service-worker.js',
+    additionalManifestEntries: [
+      '/index.html' // also precache '/index.html'
+    ]
+  }
+}
+```
+
 
 ### 3. Register service worker
 
