@@ -32,6 +32,7 @@ function Plugin (api, options) {
     const workboxBuildModule = require('workbox-build')
     const workboxBuildFunc = workboxBuildModule[options.workboxPluginMode]
     const { count, size } = await workboxBuildFunc(workboxConfig)
+    // eslint-disable-next-line no-console
     console.log(`Precache ${count} files, totaling ${size} bytes.`)
   })
 
