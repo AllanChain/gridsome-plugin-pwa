@@ -3,7 +3,7 @@ function Plugin (api, options) {
 
   // shared between webpack and workbox config
   let workboxConfig, compileOptions
-  console.info(options, process.env.NODE_ENV)
+
   if (process.env.NODE_ENV === 'production') {
     const generateWorkboxConfig = require('./lib/generateWorkboxConfig');
     ({ workboxConfig, compileOptions } = generateWorkboxConfig(
