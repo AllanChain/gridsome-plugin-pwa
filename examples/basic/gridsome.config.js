@@ -22,6 +22,7 @@ const options = {
     msTileColor: '#00a672',
     workboxOptions: {
       cacheId: 'awesome-pwa',
+      globPatterns: ['assets/@(js|css)/*', 'index.html'],
       skipWaiting: true
     }
   },
