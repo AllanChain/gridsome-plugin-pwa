@@ -3,7 +3,7 @@ function Plugin (api, options) {
 
   // shared between webpack and workbox config
   let workboxConfig, compileOptions
-
+  console.info(options, process.env.NODE_ENV)
   if (process.env.NODE_ENV === 'production') {
     const generateWorkboxConfig = require('./lib/generateWorkboxConfig');
     ({ workboxConfig, compileOptions } = generateWorkboxConfig(
@@ -29,12 +29,11 @@ function Plugin (api, options) {
     }
   })
 
-  api.afterBuild(() => {
+  api.afterBuild(async () => {
     const workboxBuildModule = require('workbox-build')
-    workboxBuildModule[options.workboxPluginMode](workboxConfig)
-      .then(({ count, size }) => {
-        console.log(`Precache ${count} files, totaling ${size} bytes.`)
-      })
+    const workboxBuildFunc = workboxBuildModule[options.workboxPluginMode]
+    const { count, size } = await workboxBuildFunc(workboxConfig)
+    console.log(`Precache ${count} files, totaling ${size} bytes.`)
   })
 
   api.configureServer(app => {
