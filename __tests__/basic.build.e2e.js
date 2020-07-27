@@ -66,9 +66,6 @@ describe('sevice worker', () => {
   it('does configured ignore', () => {
     expect(swContent).not.toMatch('manifest.json')
   })
-  it('does not ignore default if configured', () => {
-    expect(swContent).toMatch('assets/icons')
-  })
   it('includes prefetch assets', () => {
     expect(swContent).toMatch('/gridsome/assets/js/app')
   })
