@@ -12,8 +12,8 @@
   "scripts": {
     "lint": "eslint --fix . --ext .js",
     "test": "jest",
-    "test:build": "jest __tests__/basic.build.e2e.js --runInBand --detectOpenHandles",
-    "test:develop": "jest __tests__/basic.develop.e2e.js --runInBand --detectOpenHandles",
+    "test:build": "jest __tests__/*.build.e2e.js --runInBand --detectOpenHandles",
+    "test:develop": "jest __tests__/*.develop.e2e.js --runInBand --detectOpenHandles",
     "test:unit": "jest __tests__/*.unit.js"
   },
   "keywords": [

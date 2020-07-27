@@ -1,17 +1,9 @@
-const path = require('path')
 const fs = require('fs')
 
-const context = path.join(__dirname, '..', 'examples', 'basic')
-const dist = (...file) => path.join(context, 'gridsome', ...file)
-
-process.chdir(context)
-
-const build = require(path.join(
-  context, 'node_modules', 'gridsome', 'lib', 'build.js'
-))
+const { dist, build } = require('./utils')
 
 beforeAll(async () => {
-  await build(context)
+  await build()
 }, 60000)
 
 describe('manifest.json', () => {

@@ -1,4 +1,5 @@
 module.exports = {
   verbose: true,
-  setupFilesAfterEnv: ['./jest.setup.js']
+  setupFilesAfterEnv: ['./jest.setup.js'],
+  testPathIgnorePatterns: ['utils.js']
 }
