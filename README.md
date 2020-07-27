@@ -60,6 +60,7 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
 
     ```js
     {
+      modifyURLPrefix: { '': config.publicPath },
       globDirectory: config.outputDir,
       globPatterns: ['assets/@(js|css)/*'],
       swDest: path.join(config.outputDir, 'service-worker.js')
