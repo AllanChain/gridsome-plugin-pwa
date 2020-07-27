@@ -11,7 +11,7 @@
   - [1. Add to Dependencies](#1-add-to-dependencies)
   - [2. Register as Gridsome Plugin](#2-register-as-gridsome-plugin)
     - [Configuration](#configuration)
-    - [Sample Config](#sample-config)
+    - [Example Configuration](#example-configuration)
   - [3. Register service worker](#3-register-service-worker)
 - [Developing and Testing](#developing-and-testing)
 - [LICENSE](#license)
@@ -151,43 +151,34 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
 
   - Default: `themeColor`
 
-#### Sample Config
+#### Example Configuration
 
 You can also checkout [example gridsome app](examples/basic/gridsome.config.js).
 
 `generateSW` mode:
 
 ```js
-  plugins: [
-    {
-      use: '@allanchain/gridsome-plugin-pwa',
-      options: {
-        name: 'Awesome Gridsome',
-        manifestOptions: {
-          short_name: 'Gridsome',
-          description: 'Gridsome is awesome!',
-          display: 'standalone',
-          background_color: '#ffffff',
-          gcm_sender_id: undefined,
-          start_url: '/',
-          categories: ['education'],
-          lang: 'en-GB',
-          dir: 'auto'
-        },
-        appleMobileWebAppStatusBarStyle: 'default',
-        manifestPath: 'manifest.json',
-        icon: 'src/favicon.png',
-        msTileColor: '#00a672',
-        workboxOptions: {
-          cacheId: 'awesome-pwa',
-          skipWaiting: true,
-          exclude: [
-            /manifest\.json/
-          ]
-        }
-      }
-    }
-  ]
+{
+  manifestOptions: {
+    short_name: 'Gridsome',
+    description: 'Gridsome is awesome!',
+    display: 'standalone',
+    gcm_sender_id: undefined,
+    start_url: '/',
+    categories: ['education'],
+    lang: 'en-GB',
+    dir: 'auto'
+  },
+  appleMobileWebAppStatusBarStyle: 'default',
+  manifestPath: 'manifest.json',
+  icon: 'src/favicon.png',
+  msTileColor: '#00a672',
+  workboxOptions: {
+    cacheId: 'awesome-pwa',
+    globPatterns: ['assets/@(js|css)/*', 'index.html'],
+    skipWaiting: true
+  }
+}
 ```
 
 `injectManifest` mode:
@@ -197,9 +188,7 @@ You can also checkout [example gridsome app](examples/basic/gridsome.config.js).
   workboxPluginMode: 'injectManifest',
   workboxOptions: {
     swSrc: './src/service-worker.js',
-    additionalManifestEntries: [
-      '/index.html' // also precache '/index.html'
-    ]
+    globPatterns: ['assets/@(js|css)/*', 'index.html']
   }
 }
 ```
