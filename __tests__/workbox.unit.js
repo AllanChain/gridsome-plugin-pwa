@@ -10,11 +10,7 @@ const apiConfig = {
 
 const workbox = userOptions => {
   const options = defaultsDeep(userOptions, defaultOptions())
-  return generateWorkboxConfig(
-    apiConfig,
-    options.workboxPluginMode,
-    options.workboxOptions
-  )
+  return generateWorkboxConfig(apiConfig, options)
 }
 
 describe('Generate Workbox Config', () => {

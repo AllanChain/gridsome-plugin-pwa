@@ -8,8 +8,7 @@ function Plugin (api, options) {
     const generateWorkboxConfig = require('./lib/generateWorkboxConfig');
     ({ workboxConfig, compileOptions } = generateWorkboxConfig(
       api.config,
-      options.workboxPluginMode,
-      options.workboxOptions
+      options
     ))
   }
 
@@ -21,7 +20,7 @@ function Plugin (api, options) {
       .plugin('pwa-manifest')
       .use(ManifestPlugin, [options])
 
-    if (isProd && options.workboxPluginMode === 'injectManifest') {
+    if (isProd && compileOptions) {
       const compileSWPlugin = require('./lib/compileSWPlugin')
       webpackConfig
         .plugin('compile-sw')
@@ -60,6 +59,7 @@ Plugin.defaultOptions = () => ({
   maskableIcon: false,
   msTileColor: '#00a672',
   workboxPluginMode: 'generateSW',
+  workboxCompileSrc: true,
   workboxOptions: {}
 })
 

@@ -54,6 +54,12 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
   The "[Which Plugin to Use?](https://developers.google.com/web/tools/workbox/modules/workbox-build#which_plugin_to_use)"
   guide can help you choose between the two modes.
 
+- **workboxCompileSrc**
+
+  - Default: `true`
+  
+  Only works in `injectManifest` mode. Compile your `service-worker.js` with webpack.
+
 - **workboxOptions**
   
   - Default:
