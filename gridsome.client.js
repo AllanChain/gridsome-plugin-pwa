@@ -16,6 +16,8 @@ module.exports = function (Vue, options, { head }) {
     })
   }
 
+  // Apple touch icon is handled by gridsome.
+
   head.meta.push({
     name: 'theme-color',
     content: options.themeColor
