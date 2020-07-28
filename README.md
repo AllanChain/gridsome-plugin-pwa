@@ -81,6 +81,8 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
   [`generateSW`](https://developers.google.com/web/tools/workbox/modules/workbox-build#full_generateSW_config)
   or for [`injectManifest`](https://developers.google.com/web/tools/workbox/modules/workbox-build#full_injectManifest_config).
 
+  **It is not recommended to precache all files**, because your site can be large. Instead, precache important files and consider runtime caching for other files.
+
 - **name**
 
   - Default: "siteName" field in gridsome config
