@@ -10,23 +10,23 @@
 - [Installation](#installation)
   - [1. Add to Dependencies](#1-add-to-dependencies)
   - [2. Register as Gridsome Plugin](#2-register-as-gridsome-plugin)
-    - [Configuration](#configuration)
-      - [workboxPluginMode](#workboxpluginmode)
-      - [workboxCompileSrc](#workboxcompilesrc)
-      - [workboxOptions](#workboxoptions)
-      - [name](#name)
-      - [themeColor](#themecolor)
-      - [msTileColor](#mstilecolor)
-      - [appleMobileWebAppCapable](#applemobilewebappcapable)
-      - [appleMobileWebAppStatusBarStyle](#applemobilewebappstatusbarstyle)
-      - [manifestPath](#manifestpath)
-      - [manifestOptions](#manifestoptions)
-      - [icon](#icon)
-      - [maskableIcon](#maskableicon)
-      - [appleMaskIcon](#applemaskicon)
-      - [appleMaskIconColor](#applemaskiconcolor)
     - [Example Configuration](#example-configuration)
   - [3. Register service worker](#3-register-service-worker)
+- [Options](#options)
+  - [workboxPluginMode](#workboxpluginmode)
+  - [workboxCompileSrc](#workboxcompilesrc)
+  - [workboxOptions](#workboxoptions)
+  - [name](#name)
+  - [themeColor](#themecolor)
+  - [msTileColor](#mstilecolor)
+  - [appleMobileWebAppCapable](#applemobilewebappcapable)
+  - [appleMobileWebAppStatusBarStyle](#applemobilewebappstatusbarstyle)
+  - [manifestPath](#manifestpath)
+  - [manifestOptions](#manifestoptions)
+  - [icon](#icon)
+  - [maskableIcon](#maskableicon)
+  - [appleMaskIcon](#applemaskicon)
+  - [appleMaskIconColor](#applemaskiconcolor)
 - [Developing and Testing](#developing-and-testing)
 - [LICENSE](#license)
 
@@ -50,126 +50,21 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
 
 ### 2. Register as Gridsome Plugin
 
-#### Configuration
+This plugin should work with zero config (you still nead step 3) if your icon file is `src/favicon.png`
 
-> This plugin should work with zero config (you still nead step 3) if your icon file is `src/favicon.png`
+```js
+// gridsome.config.js
+module.exports = {
+  plugins: [
+    {
+      use: '@allanchain/gridsome-plugin-pwa',
+      options: {}
+    }
+  ]
+}
+```
 
-##### workboxPluginMode
-
-This allows you to the choose between the two modes supported by the underlying
-[`workbox-build`](https://developers.google.com/web/tools/workbox/modules/workbox-build).
-
-- `'generateSW'` (default), will lead to a new service worker file being created
-each time you rebuild your web app.
-
-- `'injectManifest'` allows you to start with an existing service worker file,
-and creates a copy of that file with a "precache manifest" injected into it.
-
-The "[Which Plugin to Use?](https://developers.google.com/web/tools/workbox/modules/workbox-build#which_plugin_to_use)"
-guide can help you choose between the two modes.
-
-##### workboxCompileSrc
-
-- Default: `true`
-
-Only works in `injectManifest` mode. Compile your `service-worker.js` with webpack.
-
-##### workboxOptions
-
-- Default:
-
-  ```js
-  {
-    modifyURLPrefix: { '': config.publicPath },
-    globDirectory: config.outputDir,
-    globPatterns: ['assets/@(js|css)/*'],
-    swDest: path.join(config.outputDir, 'service-worker.js')
-    sourcemap: false, // if generateSW
-    cacheId: config.siteName // if generateSW
-  }
-  ```
-
-These options are passed on through to the underlying `workbox-build`.
-
-For more information on what values are supported, please see the guide for
-[`generateSW`](https://developers.google.com/web/tools/workbox/modules/workbox-build#full_generateSW_config)
-or for [`injectManifest`](https://developers.google.com/web/tools/workbox/modules/workbox-build#full_injectManifest_config).
-
-**It is not recommended to precache all files**, because your site can be large. Instead, precache important files and consider runtime caching for other files.
-
-##### name
-
-- Default: "siteName" field in gridsome config
-
-  Used as the value for the `apple-mobile-web-app-title` meta tag in the generated HTML.
-
-##### themeColor
-
-- Default: `'#00a672'`
-
-##### msTileColor
-
-- Default: `'#00a672'`
-
-##### appleMobileWebAppCapable
-
-- Default: `'no'`
-
-  This defaults to `'no'` because iOS before 11.3 does not have proper PWA support. See [this article](https://medium.com/@firt/dont-use-ios-web-app-meta-tag-irresponsibly-in-your-progressive-web-apps-85d70f4438cb) for more details.
-
-##### appleMobileWebAppStatusBarStyle
-
-- Default: `'default'`
-
-##### manifestPath
-
-- Default: `'manifest.json'`
-
-  The path of app’s manifest. Different to `vue-cli`, currently you can only use the generated manifest.
-
-##### manifestOptions
-
-- Default: 
-  ```js
-  {
-    start_url: '.',
-    display: 'standalone',
-    background_color: '#000000'
-  }
-  ```
-
-  The object will be used to generate the `manifest.json`
-
-  If the following attributes are not defined in the object, default options will be used instead.
-    - name: `name`
-    - short_name: `name`
-    - start_url: `'.'`
-    - display: `'standalone'`
-    - theme_color: `themeColor`
-
-##### icon
-
-- Default: `'src/favicon.png'`
-
-  The icon file to generate icons of all sizes. It is a relative **file path**, not a relative URL.
-
-##### maskableIcon
-
-- Default: `false`
-
-  Whether the icon provided is maskable.
-
-##### appleMaskIcon
-
-- Default: `undefined`
-
-A square SVG image, with a transparent (or simply: no) background, and all vectors 100% black.
-
-##### appleMaskIconColor
-
-- Default: `themeColor`
-
-Active color of `appleMaskIcon`
+Checkout [Options](#options) for detailed explanation of all options.
 
 #### Example Configuration
 
@@ -212,6 +107,8 @@ You can also checkout [example gridsome app](examples/basic/gridsome.config.js).
   }
 }
 ```
+
+
 
 
 ### 3. Register service worker
@@ -266,6 +163,130 @@ export default function (Vue, { router, head, isClient }) {
   // ...
 }
 ```
+
+## Options
+
+### workboxPluginMode
+
+Default: `'generateSW'`
+
+This allows you to the choose between the two modes supported by the underlying
+[`workbox-build`](https://developers.google.com/web/tools/workbox/modules/workbox-build).
+
+- `'generateSW'` will lead to a new service worker file being created
+each time you rebuild your web app.
+
+- `'injectManifest'` allows you to start with an existing service worker file,
+and creates a copy of that file with a "precache manifest" injected into it.
+
+The "[Which Plugin to Use?](https://developers.google.com/web/tools/workbox/modules/workbox-build#which_plugin_to_use)"
+guide can help you choose between the two modes.
+
+### workboxCompileSrc
+
+Default: `true`
+
+Only works in `injectManifest` mode. Compile your `service-worker.js` with webpack.
+
+### workboxOptions
+
+Default:
+
+```js
+{
+  modifyURLPrefix: { '': config.publicPath },
+  globDirectory: config.outputDir,
+  globPatterns: ['assets/@(js|css)/*'],
+  swDest: path.join(config.outputDir, 'service-worker.js')
+  sourcemap: false, // if generateSW
+  cacheId: config.siteName // if generateSW
+}
+```
+
+These options are passed on through to the underlying `workbox-build`.
+
+For more information on what values are supported, please see the guide for
+[`generateSW`](https://developers.google.com/web/tools/workbox/modules/workbox-build#full_generateSW_config)
+or for [`injectManifest`](https://developers.google.com/web/tools/workbox/modules/workbox-build#full_injectManifest_config).
+
+**It is not recommended to precache all files**, because your site can be large. Instead, precache important files and consider runtime caching for other files.
+
+### name
+
+Default: `config.siteName`
+
+Used as the value for the `apple-mobile-web-app-title` and `application-name` meta tags in the generated HTML.
+
+### themeColor
+
+Default: `'#00a672'`
+
+### msTileColor
+
+Default: `'#00a672'`
+
+### appleMobileWebAppCapable
+
+Default: `'no'`
+
+This defaults to `'no'` because iOS before 11.3 does not have proper PWA support. See [this article](https://medium.com/@firt/dont-use-ios-web-app-meta-tag-irresponsibly-in-your-progressive-web-apps-85d70f4438cb) for more details.
+
+### appleMobileWebAppStatusBarStyle
+
+Default: `'default'`
+
+### manifestPath
+
+Default: `'manifest.json'`
+
+The path of app’s manifest. Different to `vue-cli`, currently you can only use the generated manifest.
+
+### manifestOptions
+
+Default: 
+```js
+{
+  start_url: '.',
+  display: 'standalone',
+  background_color: '#000000'
+}
+```
+
+The object will be used to generate the `manifest.json`
+
+If the following attributes are not defined in the object, default options will be used instead.
+  - name: `name`
+  - short_name: `name`
+  - start_url: `'.'`
+  - display: `'standalone'`
+  - theme_color: `themeColor`
+
+### icon
+
+Default: `'src/favicon.png'`
+
+The icon file to generate icons of all sizes. It is a relative **file path**, not a relative URL.
+
+### maskableIcon
+
+Default: `false`
+
+Whether the icon provided is maskable.
+
+### appleMaskIcon
+
+Default: `undefined`
+
+URL to apple mask icon (a.k.a safari pinned tab SVG)
+
+A square SVG image, with a transparent (or simply: no) background, and all vectors 100% black.
+
+### appleMaskIconColor
+
+Default: `themeColor`
+
+Active color of `appleMaskIcon`
+
 
 ## Developing and Testing
 
