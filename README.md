@@ -140,19 +140,17 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
 
     Whether the icon provided is maskable.
 
-- **svgFavicon**
-
-  - Default: `undefined`
-
-    Standard Meta Tags. Requires favicon.ico fallback
-
 - **appleMaskIcon**
 
   - Default: `undefined`
 
+  A square SVG image, with a transparent (or simply: no) background, and all vectors 100% black.
+
 - **appleMaskIconColor**
 
   - Default: `themeColor`
+
+  Active color of `appleMaskIcon`
 
 #### Sample Config
 
