@@ -11,14 +11,14 @@
   - [1. Add to Dependencies](#1-add-to-dependencies)
   - [2. Register as Gridsome Plugin](#2-register-as-gridsome-plugin)
     - [Configuration](#configuration)
-    - [Sample Config](#sample-config)
+    - [Example Configuration](#example-configuration)
   - [3. Register service worker](#3-register-service-worker)
 - [Developing and Testing](#developing-and-testing)
 - [LICENSE](#license)
 
 ## Overview
 
-This plugin is based on [gridsome-plugin-pwa](https://github.com/rishabh3112/gridsome-plugin-pwa) and `@vue/cli-plugin-pwa`, and it is created to be a better alternative. it serves manifest and no-op service worker in development, use `workbox-webpack-plugin`, use similar config structure, just as `vue-cli` does
+This plugin is based on [gridsome-plugin-pwa](https://github.com/rishabh3112/gridsome-plugin-pwa) and `@vue/cli-plugin-pwa`, and it is created to be a better alternative. it serves manifest and no-op service worker in development, use similar config structure, just as `vue-cli` does
 
 It tries to be more similar to `cli-plugin-pwa`, but makes use of gridsome's image processing power.
 
@@ -43,40 +43,45 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
 - **workboxPluginMode**
 
   This allows you to the choose between the two modes supported by the underlying
-  [`workbox-webpack-plugin`](https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin).
+  [`workbox-build`](https://developers.google.com/web/tools/workbox/modules/workbox-build).
 
-  - `'GenerateSW'` (default), will lead to a new service worker file being created
+  - `'generateSW'` (default), will lead to a new service worker file being created
   each time you rebuild your web app.
 
-  - `'InjectManifest'` allows you to start with an existing service worker file,
+  - `'injectManifest'` allows you to start with an existing service worker file,
   and creates a copy of that file with a "precache manifest" injected into it.
 
-  The "[Which Plugin to Use?](https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin#which_plugin_to_use)"
+  The "[Which Plugin to Use?](https://developers.google.com/web/tools/workbox/modules/workbox-build#which_plugin_to_use)"
   guide can help you choose between the two modes.
+
+- **workboxCompileSrc**
+
+  - Default: `true`
+  
+  Only works in `injectManifest` mode. Compile your `service-worker.js` with webpack.
 
 - **workboxOptions**
   
   - Default:
-    - `{}` if `InjectManifest`
-    - if `GenerateSW`
 
-      you can override `/assets\/icons/` if provide `exclude` yourself, but cannot override first two because thay are to prevent error.
+    ```js
+    {
+      modifyURLPrefix: { '': config.publicPath },
+      globDirectory: config.outputDir,
+      globPatterns: ['assets/@(js|css)/*'],
+      swDest: path.join(config.outputDir, 'service-worker.js')
+      sourcemap: false, // if generateSW
+      cacheId: config.siteName // if generateSW
+    }
+    ```
 
-      ```js
-      {
-        exclude: [
-          /styles(\.\w{8})?\.js$/,
-          /manifest\/client.json$/,
-          /assets\/icons/
-        ]
-      }
-      ```
-
-  These options are passed on through to the underlying `workbox-webpack-plugin`.
+  These options are passed on through to the underlying `workbox-build`.
 
   For more information on what values are supported, please see the guide for
-  [`GenerateSW`](https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin#full_generatesw_config)
-  or for [`InjectManifest`](https://developers.google.com/web/tools/workbox/modules/workbox-webpack-plugin#full_injectmanifest_config).
+  [`generateSW`](https://developers.google.com/web/tools/workbox/modules/workbox-build#full_generateSW_config)
+  or for [`injectManifest`](https://developers.google.com/web/tools/workbox/modules/workbox-build#full_injectManifest_config).
+
+  **It is not recommended to precache all files**, because your site can be large. Instead, precache important files and consider runtime caching for other files.
 
 - **name**
 
@@ -152,55 +157,44 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
 
   Active color of `appleMaskIcon`
 
-#### Sample Config
+#### Example Configuration
 
 You can also checkout [example gridsome app](examples/basic/gridsome.config.js).
 
-`GenerateSW` mode:
-
-```js
-  plugins: [
-    {
-      use: '@allanchain/gridsome-plugin-pwa',
-      options: {
-        name: 'Awesome Gridsome',
-        manifestOptions: {
-          short_name: 'Gridsome',
-          description: 'Gridsome is awesome!',
-          display: 'standalone',
-          background_color: '#ffffff',
-          gcm_sender_id: undefined,
-          start_url: '/',
-          categories: ['education'],
-          lang: 'en-GB',
-          dir: 'auto'
-        },
-        appleMobileWebAppStatusBarStyle: 'default',
-        manifestPath: 'manifest.json',
-        icon: 'src/favicon.png',
-        msTileColor: '#00a672',
-        workboxOptions: { // options passed to workbox-webpack-plugin
-          cacheId: 'awesome-pwa',
-          skipWaiting: true,
-          exclude: [
-            /manifest\.json/
-          ]
-        }
-      }
-    }
-  ]
-```
-
-`InjectManifest` mode:
+`generateSW` mode:
 
 ```js
 {
-  workboxPluginMode: 'InjectManifest',
+  manifestOptions: {
+    short_name: 'Gridsome',
+    description: 'Gridsome is awesome!',
+    display: 'standalone',
+    gcm_sender_id: undefined,
+    start_url: '/',
+    categories: ['education'],
+    lang: 'en-GB',
+    dir: 'auto'
+  },
+  appleMobileWebAppStatusBarStyle: 'default',
+  manifestPath: 'manifest.json',
+  icon: 'src/favicon.png',
+  msTileColor: '#00a672',
+  workboxOptions: {
+    cacheId: 'awesome-pwa',
+    globPatterns: ['assets/@(js|css)/*', 'index.html'],
+    skipWaiting: true
+  }
+}
+```
+
+`injectManifest` mode:
+
+```js
+{
+  workboxPluginMode: 'injectManifest',
   workboxOptions: {
     swSrc: './src/service-worker.js',
-    additionalManifestEntries: [
-      '/index.html' // also precache '/index.html'
-    ]
+    globPatterns: ['assets/@(js|css)/*', 'index.html']
   }
 }
 ```

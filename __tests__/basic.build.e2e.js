@@ -1,17 +1,9 @@
-const path = require('path')
 const fs = require('fs')
 
-const context = path.join(__dirname, '..', 'examples', 'basic')
-const dist = (...file) => path.join(context, 'gridsome', ...file)
-
-process.chdir(context)
-
-const build = require(path.join(
-  context, 'node_modules', 'gridsome', 'lib', 'build.js'
-))
+const { dist, build } = require('./utils')
 
 beforeAll(async () => {
-  await build(context)
+  await build()
 }, 60000)
 
 describe('manifest.json', () => {
@@ -66,11 +58,9 @@ describe('sevice worker', () => {
   it('does configured ignore', () => {
     expect(swContent).not.toMatch('manifest.json')
   })
-  it('does not ignore default if configured', () => {
-    expect(swContent).toMatch('assets/icons')
-  })
   it('includes prefetch assets', () => {
     expect(swContent).toMatch('/gridsome/assets/js/app')
+    expect(swContent).toMatch('/gridsome/index.html')
   })
   it('uses skip waiting', () => {
     expect(swContent).toMatch('skipWaiting()')
