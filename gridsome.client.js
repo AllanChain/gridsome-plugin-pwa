@@ -8,25 +8,6 @@ module.exports = function (Vue, options, { head }) {
     href: options.publicPath + options.manifestPath
   })
 
-  if (options.svgFavicon) {
-    var emptyIcon = head.link.find(x => x.rel === 'icon' && x.href === 'data:,')
-    if (emptyIcon) {
-      const index = head.link.indexOf(emptyIcon)
-      head.link.splice(index, 1)
-    }
-
-    head.link.push({
-      rel: 'icon',
-      type: 'image/svg+xml',
-      href: options.svgFavicon
-    })
-
-    head.link.push({
-      rel: 'alternate icon',
-      href: 'favicon.ico'
-    })
-  }
-
   if (options.appleMaskIcon && options.appleMaskIconColor) {
     head.link.push({
       rel: 'mask-icon',

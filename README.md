@@ -140,12 +140,6 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
 
     Whether the icon provided is maskable.
 
-- **svgFavicon**
-
-  - Default: `undefined`
-
-    Standard Meta Tags. Requires favicon.ico fallback
-
 - **appleMaskIcon**
 
   - Default: `undefined`
