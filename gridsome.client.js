@@ -41,12 +41,10 @@ module.exports = function (Vue, options, { head }) {
     content: options.name
   })
 
-  if (options.msTileColor) {
-    head.meta.push({
-      name: 'msapplication-TileColor',
-      content: options.msTileColor
-    })
-  }
+  head.meta.push({
+    name: 'msapplication-TileColor',
+    content: options.msTileColor
+  })
 
   head.meta.push({
     name: 'msapplication-TileImage',
