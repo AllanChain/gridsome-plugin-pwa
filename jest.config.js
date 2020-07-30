@@ -3,5 +3,9 @@ module.exports = {
   collectCoverage: true,
   setupFilesAfterEnv: ['./jest.setup.js'],
   testPathIgnorePatterns: ['utils.js'],
-  collectCoverageFrom: ['gridsome.*.js', 'lib/*.js', '!noopServiceWorker*']
+  collectCoverageFrom: [
+    'gridsome.*.js',
+    'lib/*.js',
+    '!lib/noopServiceWorker*'
+  ]
 }
