@@ -1,30 +1,73 @@
 const path = require('path')
-const generateManifest = require('../lib/generateManifest')
+const {
+  iconType,
+  expandIconConfig,
+  parseIconAndManifest
+} = require('../lib/parseIconAndManifest')
 const { defaultOptions } = require('../gridsome.server')
 const defaultsDeep = require('lodash/defaultsDeep')
 
 const context = path.join(__dirname, '..', 'examples', 'basic')
 process.chdir(context)
 
-const manifest = userOptions => generateManifest(
+const fakeConfig = {
+  icon: { favicon: { src: './src/favicon.png' } },
+  publicPath: '/gridsome/'
+}
+
+const expand = config => expandIconConfig(config, './src/favicon.png')
+
+const parse = userOptions => parseIconAndManifest(
+  fakeConfig,
   Object.assign(
     { name: 'Awesome Gridsome' },
     defaultsDeep(userOptions, defaultOptions())
   )
 )
 
+describe('helper function iconType', () => {
+  it('gets correct type', () => {
+    expect(iconType('./src/favicon.ico')).toBe('ico')
+  })
+  it('works on multiple dots', () => {
+    expect(iconType('./src/fav.a.b.c.png')).toBe('png')
+  })
+})
+
+describe('helper function expandIconConfig', () => {
+  it('throws gracefully on bad config', () => {
+    expect(() => expand({ androidChrome: 23 }))
+      .toThrow('Unrecognized')
+  })
+  it('works with a string', () => {
+    const config = expand('favicon.ico')
+    expect(config.msTileImage.src).toBe('favicon.ico')
+    expect(config.androidChrome.name).toBe('android-chrome')
+  })
+  it('works if androiidChrome is a string', () => {
+    const config = expand({ androidChrome: 'favicon.ico' })
+    expect(config.androidChrome.src).toBe('favicon.ico')
+    expect(config.msTileImage.src).toBe('./src/favicon.png')
+  })
+})
+
 describe('Generate Manifest', () => {
   it('works with zero config', () => {
-    expect(manifest({}).name).toBe('Awesome Gridsome')
+    expect(parse({}).manifest.name).toBe('Awesome Gridsome')
   })
   it('does no have double slashes', () => {
-    expect(JSON.stringify(manifest({}))).not.toMatch('//')
+    expect(JSON.stringify(parse({}).manifest)).not.toMatch('//')
   })
   it('gets correct icon type', () => {
-    expect(manifest({}).icons[0].type).toBe('image/png')
+    expect(parse({}).manifest.icons[0].type).toBe('image/png')
   })
   it('throws error if icon not found', () => {
-    expect(() => manifest({ icon: 'src/not.exist.png' }))
+    expect(() => parse({ icon: 'src/not.exist.png' }))
       .toThrow('not found')
+  })
+  it('throws if urls and sizes not match', () => {
+    expect(() => parse({
+      icon: { androidChrome: { sizes: [], urls: ['/fav.ico'] } }
+    })).toThrow('not match')
   })
 })

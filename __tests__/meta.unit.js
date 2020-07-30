@@ -4,10 +4,12 @@ const client = require('../gridsome.client')
 
 const clientHead = // in js, no such default param behavior like python
   (userOptions, head = { head: { meta: [], link: [] } }) => {
-    const options = Object.assign(
-      { name: 'Awesome Gridsome', publicPath: '/gridsome/' },
-      defaultsDeep(userOptions, defaultOptions())
-    )
+    const options = {
+      name: 'Awesome Gridsome',
+      publicPath: '/gridsome/',
+      msTileImage: '/gridsome/assets/icons/favicon.png-144x144.png',
+      ...defaultsDeep(userOptions, defaultOptions())
+    }
     client(null, options, head)
     return head
   }
