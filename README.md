@@ -3,6 +3,7 @@
 [![npm (scoped)](https://img.shields.io/npm/v/@allanchain/gridsome-plugin-pwa)](https://www.npmjs.com/package/@allanchain/gridsome-plugin-pwa)
 ![License](https://img.shields.io/github/license/AllanChain/gridsome-plugin-pwa)
 ![Run Tests](https://github.com/AllanChain/gridsome-plugin-pwa/workflows/Run%20Tests/badge.svg)
+[![codecov](https://codecov.io/gh/AllanChain/gridsome-plugin-pwa/branch/master/graph/badge.svg)](https://codecov.io/gh/AllanChain/gridsome-plugin-pwa)
 
 :warning: **status: not so stable, contributions welcome**
 
