@@ -1,6 +1,8 @@
 const fs = require('fs')
 
-const { dist, build } = require('./utils')
+const { dist, build, useContext } = require('./utils')
+
+useContext()
 
 beforeAll(async () => {
   process.env.PWA_OPTIONS = 'injectManifest'
