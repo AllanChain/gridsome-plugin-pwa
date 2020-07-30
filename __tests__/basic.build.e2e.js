@@ -18,7 +18,7 @@ describe('manifest.json', () => {
     expect(manifest.start_url).toBe('/')
     expect(manifest.icons).toBeInstanceOf(Array)
     expect(manifest.icons).toContainEqual({
-      src: 'assets/icons/favicon-192x192.png',
+      src: '/gridsome/assets/icons/android-chrome-192x192.png',
       type: 'image/png',
       sizes: '192x192',
       purpose: 'any'
@@ -32,7 +32,7 @@ describe('manifest.json', () => {
 })
 
 describe('icon', () => {
-  const icon = dist('assets', 'icons', 'favicon-192x192.png')
+  const icon = dist('assets', 'icons', 'android-chrome-192x192.png')
   it('exists', () => {
     expect(fs.existsSync(icon)).toBeTruthy()
   })
