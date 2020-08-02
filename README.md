@@ -318,6 +318,8 @@ Also configure output name, sizes and maskable:
 }
 ```
 
+This will generate `android-chrome-512x512.png`, `android-chrome-384x364.png`... from `./src/my-icon.png`, and mark them as maskable.
+
 If you don't want icons to be generated, provide URLs:
 
 ```js
@@ -331,7 +333,7 @@ If you don't want icons to be generated, provide URLs:
 }
 ```
 
-`msTileImage` is similar to `androidChrome`, but can only one icon. e.g.:
+`msTileImage` is similar to `androidChrome`, but only one icon. e.g.:
 
 ```js
 {
@@ -343,7 +345,17 @@ If you don't want icons to be generated, provide URLs:
 }
 ```
 
-`appleMaskIcon` is a square SVG image, with a transparent (or simply: no) background, and all vectors 100% black.
+`appleMaskIcon` is a square SVG image, with a transparent (or simply: no) background, and all vectors 100% black. It is not auto generated, and you should provide URL if you want to include it:
+
+```js
+{
+  icon: {
+    appleMaskIcon: {
+      url: '/safari-pinned-tab.svg'
+    }
+  }
+}
+```
 
 ### msTileColor
 
