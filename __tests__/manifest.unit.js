@@ -70,3 +70,17 @@ describe('Generate Manifest', () => {
     })).toThrow('not match')
   })
 })
+
+describe('client options', () => {
+  it('returns correct by default', () => {
+    const clientOptions = parse({}).clientOptions
+    expect(clientOptions.msTileImage)
+      .toBe('/gridsome/assets/icons/msapplication-icon-144x144.png')
+    expect(clientOptions.appleMaskIcon).toBe(null)
+  })
+  it('respects provided', () => {
+    expect(parse({
+      icon: { appleMaskIcon: { url: './safari-pinned-tab.svg' } }
+    }).clientOptions.appleMaskIcon).toBe('./safari-pinned-tab.svg')
+  })
+})

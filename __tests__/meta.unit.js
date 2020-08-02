@@ -7,7 +7,8 @@ const clientHead = // in js, no such default param behavior like python
     const options = {
       name: 'Awesome Gridsome',
       publicPath: '/gridsome/',
-      msTileImage: '/gridsome/assets/icons/favicon.png-144x144.png',
+      msTileImage: '/gridsome/assets/icons/msapplication-icon-144x144.png',
+      appleMaskIcon: '/gridsome/safari-pinned-tab.svg',
       ...defaultsDeep(userOptions, defaultOptions())
     }
     client(null, options, head)

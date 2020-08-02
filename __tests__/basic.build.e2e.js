@@ -70,12 +70,15 @@ describe('sevice worker', () => {
 })
 
 describe('meta', () => {
+  const indexContent = fs.readFileSync(dist('index.html'), 'utf8')
+  const aboutContent = fs.readFileSync(dist('about', 'index.html'), 'utf8')
   it('has correct path in index.html', () => {
-    const indexContent = fs.readFileSync(dist('index.html'), 'utf8')
     expect(indexContent).toMatch('rel="manifest" href="/gridsome/manifest.json"')
   })
   it('has correct path in about/', () => {
-    const indexContent = fs.readFileSync(dist('about', 'index.html'), 'utf8')
-    expect(indexContent).toMatch('rel="manifest" href="/gridsome/manifest.json"')
+    expect(aboutContent).toMatch('rel="manifest" href="/gridsome/manifest.json"')
+  })
+  it('has mask icon', () => {
+    expect(indexContent).toMatch('rel="mask-icon')
   })
 })
