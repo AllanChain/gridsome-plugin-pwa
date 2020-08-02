@@ -6,3 +6,5 @@ yarn-error.log
 
 # module packs
 allanchain-gridsome-plugin-pwa-v*.tgz
+
+coverage/

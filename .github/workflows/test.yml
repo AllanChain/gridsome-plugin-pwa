@@ -40,3 +40,7 @@ jobs:
         yarn --frozen-lockfile
     - name: Run Tests
       run: yarn test
+    - name: Upload Coverage
+      run: bash <(curl -s https://codecov.io/bash)
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
