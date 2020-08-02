@@ -4,7 +4,7 @@ module.exports = function (Vue, options, { head }) {
     href: options.publicPath + options.manifestPath
   })
 
-  if (options.appleMaskIcon && options.appleMaskIconColor) {
+  if (options.appleMaskIcon) {
     head.link.push({
       rel: 'mask-icon',
       href: options.appleMaskIcon,
