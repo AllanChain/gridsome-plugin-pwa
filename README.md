@@ -19,14 +19,12 @@
   - [workboxOptions](#workboxoptions)
   - [name](#name)
   - [themeColor](#themecolor)
-  - [msTileColor](#mstilecolor)
   - [appleMobileWebAppCapable](#applemobilewebappcapable)
   - [appleMobileWebAppStatusBarStyle](#applemobilewebappstatusbarstyle)
   - [manifestPath](#manifestpath)
   - [manifestOptions](#manifestoptions)
   - [icon](#icon)
-  - [maskableIcon](#maskableicon)
-  - [appleMaskIcon](#applemaskicon)
+  - [msTileColor](#mstilecolor)
   - [appleMaskIconColor](#applemaskiconcolor)
 - [Developing and Testing](#developing-and-testing)
 - [LICENSE](#license)
@@ -222,10 +220,6 @@ Used as the value for the `apple-mobile-web-app-title` and `application-name` me
 
 Default: `'#00a672'`
 
-### msTileColor
-
-Default: `'#00a672'`
-
 ### appleMobileWebAppCapable
 
 Default: `'no'`
@@ -264,23 +258,109 @@ If the following attributes are not defined in the object, default options will 
 
 ### icon
 
-Default: `'src/favicon.png'`
+Default: your favicon, usually `./src/favicon.png`
 
-The icon file to generate icons of all sizes. It is a relative **file path**, not a relative URL.
+<details><summary>Or in detail</summary>
 
-### maskableIcon
+```js
+{
+  androidChrome: {
+    src, // your favicon, usually `./src/favicon.png`
+    name: 'android-chrome',
+    sizes: [512, 384, 192, 144, 96, 72, 48],
+    maskable: false,
+    urls: null
+  },
+  msTileImage: {
+    src,
+    name: 'msapplication-icon',
+    size: 144,
+    url: null
+  },
+  appleMaskIcon: {
+    url: null
+  }
+}
+```
+</details>
 
-Default: `false`
+You can use another icon file to generate icons of all sizes:
 
-Whether the icon provided is maskable.
+```js
+{
+  icon: './src/my-icon.png'
+}
+```
 
-### appleMaskIcon
+It is a relative **file path**, not a relative URL.
 
-Default: `undefined`
+Or you can configure Android Chrome (icons in `manifest.json`) icon file:
 
-URL to apple mask icon (a.k.a safari pinned tab SVG)
+```js
+{
+  icon: {
+    androidChrome: './src/android.png'
+  }
+}
+```
 
-A square SVG image, with a transparent (or simply: no) background, and all vectors 100% black.
+Also configure output name, sizes and maskable:
+
+```js
+{
+  icon: {
+    androidChrome: {
+      src: './src/my-icon.png',
+      name: 'android-chrome',
+      sizes: [512, 384, 192, 144, 96, 72, 48],
+      maskable: true
+    }
+  }
+}
+```
+
+This will generate `android-chrome-512x512.png`, `android-chrome-384x364.png`... from `./src/my-icon.png`, and mark them as maskable.
+
+If you don't want icons to be generated, provide URLs:
+
+```js
+{
+  icon: {
+    androidChrome: {
+      sizes: [512, 192],
+      urls: ['/icons/512x512.png', '/icons/192x192.png']
+    }
+  }
+}
+```
+
+`msTileImage` is similar to `androidChrome`, but only one icon. e.g.:
+
+```js
+{
+  icon: {
+    msTileImage: {
+      url: 'assets/icons/android-chrome-144x144.png'
+    }
+  }
+}
+```
+
+`appleMaskIcon` is a square SVG image, with a transparent (or simply: no) background, and all vectors 100% black. It is not auto generated, and you should provide URL if you want to include it:
+
+```js
+{
+  icon: {
+    appleMaskIcon: {
+      url: '/safari-pinned-tab.svg'
+    }
+  }
+}
+```
+
+### msTileColor
+
+Default: `'#00a672'`
 
 ### appleMaskIconColor
 

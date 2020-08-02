@@ -1,6 +1,10 @@
 function Plugin (api, options) {
   options = Object.assign({ name: api.config.siteName }, options)
 
+  const { parseIconAndManifest } = require('./lib/parseIconAndManifest')
+  const { manifest, iconTasks, clientOptions } =
+    parseIconAndManifest(api.config, options)
+
   // shared between webpack and workbox config
   let workboxConfig, compileOptions
 
@@ -18,7 +22,7 @@ function Plugin (api, options) {
     const ManifestPlugin = require('./lib/manifestPlugin')
     webpackConfig
       .plugin('pwa-manifest')
-      .use(ManifestPlugin, [options])
+      .use(ManifestPlugin, [options.manifestPath, manifest, iconTasks])
 
     if (isProd && compileOptions) {
       const compileSWPlugin = require('./lib/compileSWPlugin')
@@ -42,6 +46,7 @@ function Plugin (api, options) {
 
   api.setClientOptions({
     ...options,
+    ...clientOptions,
     publicPath: api.config.publicPath
   })
 }
@@ -56,7 +61,6 @@ Plugin.defaultOptions = () => ({
     display: 'standalone',
     background_color: '#000000'
   },
-  icon: 'src/favicon.png',
   maskableIcon: false,
   msTileColor: '#00a672',
   workboxPluginMode: 'generateSW',

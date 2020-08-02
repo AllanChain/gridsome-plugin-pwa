@@ -1,14 +1,10 @@
 module.exports = function (Vue, options, { head }) {
-  const iconsDir = options.publicPath + 'assets/icons/'
-  const iconName = options.icon.split('/').slice(-1)[0]
-  const msTileImage = `${iconsDir}${iconName}-144x144.png`
-
   head.link.push({
     rel: 'manifest',
     href: options.publicPath + options.manifestPath
   })
 
-  if (options.appleMaskIcon && options.appleMaskIconColor) {
+  if (options.appleMaskIcon) {
     head.link.push({
       rel: 'mask-icon',
       href: options.appleMaskIcon,
@@ -50,6 +46,6 @@ module.exports = function (Vue, options, { head }) {
 
   head.meta.push({
     name: 'msapplication-TileImage',
-    content: msTileImage
+    content: options.msTileImage
   })
 }
