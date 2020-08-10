@@ -18,23 +18,19 @@ const options = {
     },
     appleMobileWebAppStatusBarStyle: 'default',
     manifestPath: 'manifest.json',
-    icon: 'src/favicon.png',
+    icon: { appleMaskIcon: { url: './safari-pinned-tab.svg' } },
     msTileColor: '#00a672',
     workboxOptions: {
       cacheId: 'awesome-pwa',
-      skipWaiting: true,
-      exclude: [
-        /manifest\.json/
-      ]
+      globPatterns: ['assets/@(js|css)/*', 'index.html'],
+      skipWaiting: true
     }
   },
-  InjectManifest: {
-    workboxPluginMode: 'InjectManifest',
+  injectManifest: {
+    workboxPluginMode: 'injectManifest',
     workboxOptions: {
       swSrc: './src/service-worker.js',
-      additionalManifestEntries: [
-        '/gridsome/index.html'
-      ]
+      globPatterns: ['assets/@(js|css)/*', 'index.html']
     }
   }
 }

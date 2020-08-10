@@ -24,7 +24,7 @@ jobs:
         path: |
           node_modules
           examples/basic/node_modules
-        key: node-${{ hashFiles('yarn.lock') }}-${{ hashFiles('examples/basic/yarn.lock') }}
+        key: node-${{ hashFiles('package.json') }}-${{ hashFiles('examples/basic/yarn.lock') }}
         restore-keys: |
           node-
     - name: Install and Link Packages
@@ -40,3 +40,7 @@ jobs:
         yarn --frozen-lockfile
     - name: Run Tests
       run: yarn test
+    - name: Upload Coverage
+      run: bash <(curl -s https://codecov.io/bash)
+      env:
+        CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}

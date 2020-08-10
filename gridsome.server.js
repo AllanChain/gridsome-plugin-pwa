@@ -1,29 +1,43 @@
 function Plugin (api, options) {
   options = Object.assign({ name: api.config.siteName }, options)
 
+  const { parseIconAndManifest } = require('./lib/parseIconAndManifest')
+  const { manifest, iconTasks, clientOptions } =
+    parseIconAndManifest(api.config, options)
+
+  // shared between webpack and workbox config
+  let workboxConfig, compileOptions
+
+  if (process.env.NODE_ENV === 'production') {
+    const generateWorkboxConfig = require('./lib/generateWorkboxConfig');
+    ({ workboxConfig, compileOptions } = generateWorkboxConfig(
+      api.config,
+      options
+    ))
+  }
+
   api.chainWebpack((webpackConfig, { isServer, isProd }) => {
     if (isServer) return
 
     const ManifestPlugin = require('./lib/manifestPlugin')
     webpackConfig
       .plugin('pwa-manifest')
-      .use(ManifestPlugin, [options])
+      .use(ManifestPlugin, [options.manifestPath, manifest, iconTasks])
 
-    // generate /service-worker.js in production mode
-    if (isProd) {
-      const workboxWebpackModule = require('workbox-webpack-plugin')
-      const generateWorkboxConfig = require('./lib/generateWorkboxConfig')
+    if (isProd && compileOptions) {
+      const compileSWPlugin = require('./lib/compileSWPlugin')
       webpackConfig
-        .plugin('workbox')
-        .use(
-          workboxWebpackModule[options.workboxPluginMode],
-          [generateWorkboxConfig(
-            api.config.siteName,
-            options.workboxPluginMode,
-            options.workboxOptions
-          )]
-        )
+        .plugin('compile-sw')
+        .use(compileSWPlugin, [compileOptions])
     }
+  })
+
+  api.afterBuild(async () => {
+    const workboxBuildModule = require('workbox-build')
+    const workboxBuildFunc = workboxBuildModule[options.workboxPluginMode]
+    const { count, size } = await workboxBuildFunc(workboxConfig)
+    // eslint-disable-next-line no-console
+    console.log(`Precache ${count} files, totaling ${size} bytes.`)
   })
 
   api.configureServer(app => {
@@ -32,6 +46,7 @@ function Plugin (api, options) {
 
   api.setClientOptions({
     ...options,
+    ...clientOptions,
     publicPath: api.config.publicPath
   })
 }
@@ -46,10 +61,10 @@ Plugin.defaultOptions = () => ({
     display: 'standalone',
     background_color: '#000000'
   },
-  icon: 'src/favicon.png',
   maskableIcon: false,
   msTileColor: '#00a672',
-  workboxPluginMode: 'GenerateSW',
+  workboxPluginMode: 'generateSW',
+  workboxCompileSrc: true,
   workboxOptions: {}
 })
 

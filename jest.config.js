@@ -1,4 +1,11 @@
 module.exports = {
   verbose: true,
-  setupFilesAfterEnv: ['./jest.setup.js']
+  collectCoverage: true,
+  setupFilesAfterEnv: ['./jest.setup.js'],
+  testPathIgnorePatterns: ['utils.js'],
+  collectCoverageFrom: [
+    'gridsome.*.js',
+    'lib/*.js',
+    '!lib/noopServiceWorker*'
+  ]
 }

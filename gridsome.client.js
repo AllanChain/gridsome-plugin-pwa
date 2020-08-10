@@ -1,39 +1,18 @@
 module.exports = function (Vue, options, { head }) {
-  const iconsDir = options.publicPath + 'assets/icons/'
-  const iconName = options.icon.split('/').slice(-1)[0]
-  const msTileImage = `${iconsDir}${iconName}-144x144.png`
-
   head.link.push({
     rel: 'manifest',
     href: options.publicPath + options.manifestPath
   })
 
-  if (options.svgFavicon) {
-    var emptyIcon = head.link.find(x => x.rel === 'icon' && x.href === 'data:,')
-    if (emptyIcon) {
-      const index = head.link.indexOf(emptyIcon)
-      head.link.splice(index, 1)
-    }
-
-    head.link.push({
-      rel: 'icon',
-      type: 'image/svg+xml',
-      href: options.svgFavicon
-    })
-
-    head.link.push({
-      rel: 'alternate icon',
-      href: 'favicon.ico'
-    })
-  }
-
-  if (options.appleMaskIcon && options.appleMaskIconColor) {
+  if (options.appleMaskIcon) {
     head.link.push({
       rel: 'mask-icon',
       href: options.appleMaskIcon,
       color: options.appleMaskIconColor || options.themeColor
     })
   }
+
+  // Apple touch icon is handled by gridsome.
 
   head.meta.push({
     name: 'theme-color',
@@ -60,15 +39,13 @@ module.exports = function (Vue, options, { head }) {
     content: options.name
   })
 
-  if (options.msTileColor) {
-    head.meta.push({
-      name: 'msapplication-TileColor',
-      content: options.msTileColor
-    })
-  }
+  head.meta.push({
+    name: 'msapplication-TileColor',
+    content: options.msTileColor
+  })
 
   head.meta.push({
     name: 'msapplication-TileImage',
-    content: msTileImage
+    content: options.msTileImage
   })
 }
