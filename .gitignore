@@ -2,6 +2,9 @@ node_modules/
 
 .vscode/
 
+# ignoring because this is a lib
+/yarn.lock
+
 yarn-error.log
 
 # module packs
