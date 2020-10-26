@@ -10,7 +10,8 @@
     "url": "https://github.com/AllanChain/gridsome-plugin-pwa"
   },
   "scripts": {
-    "lint": "eslint --fix . --ext .js",
+    "lint": "eslint . --ext .js",
+    "lint:fix": "eslint --fix . --ext .js",
     "test": "jest --runInBand",
     "test:build": "jest __tests__/*.build.e2e.js --runInBand --detectOpenHandles",
     "test:develop": "jest __tests__/*.develop.e2e.js --runInBand --detectOpenHandles",
