@@ -20,8 +20,10 @@ describe('sevice worker', () => {
     expect(fs.existsSync(sw)).toBeTruthy()
     swContent = fs.readFileSync(sw, 'utf8')
   })
-  it('has reasonable size', () => {
-    expect(fs.statSync(sw).size).toBeGreaterThan(10000)
+  it('splits chunk', () => {
+    expect(fs.statSync(sw).size).toBeGreaterThan(4000)
+    expect(fs.statSync(sw).size).toBeLessThan(20000)
+    expect(swContent).toMatch('importScripts')
   })
   it('includes original code', () => {
     expect(swContent).toMatch('/gridsome/index.html')

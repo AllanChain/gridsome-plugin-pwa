@@ -1,8 +1,4 @@
-// This is where project configuration and plugin options are located.
-// Learn more: https://gridsome.org/docs/config
-
-// Changes here require a server restart.
-// To restart press CTRL + C in terminal and run `gridsome develop`
+const SplitChunksPlugin = require('webpack/lib/optimize/SplitChunksPlugin')
 
 const options = {
   default: {
@@ -31,7 +27,17 @@ const options = {
     workboxOptions: {
       swSrc: './src/service-worker.js',
       globPatterns: ['assets/@(js|css)/*', 'index.html']
-    }
+    },
+    workboxCompileSrc: [
+      new SplitChunksPlugin({
+        cacheGroups: {
+          workbox: {
+            test: /[\\/]node_modules[\\/]/,
+            chunks: 'initial'
+          }
+        }
+      })
+    ]
   }
 }
 

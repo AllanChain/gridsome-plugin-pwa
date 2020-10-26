@@ -187,6 +187,8 @@ Default: `true`
 
 Only works in `injectManifest` mode. Compile your `service-worker.js` with webpack.
 
+Will be applied to compilation if set to an array of webpack plugins.
+
 ### workboxOptions
 
 Default:
