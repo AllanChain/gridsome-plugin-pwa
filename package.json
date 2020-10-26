@@ -35,7 +35,6 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "rename": "^1.0.4",
     "webpack": "^4.0.0",
     "workbox-build": "^5.1.3"
   },
