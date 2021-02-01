@@ -22,22 +22,14 @@ jobs:
     - uses: actions/cache@v2
       with:
         path: |
-          node_modules
-          examples/basic/node_modules
-        key: node-${{ hashFiles('package.json') }}-${{ hashFiles('examples/basic/yarn.lock') }}
+          .yarn/cache
+          **/node_modules
+        key: node-${{ hashFiles('yarn.lock') }}
         restore-keys: |
           node-
     - name: Install and Link Packages
       run: |
-        yarn link
-        cd examples/basic
-        yarn link @allanchain/gridsome-plugin-pwa
-        yarn --frozen-lockfile
-        cd node_modules/sharp
-        yarn link
-        cd ../../../..
-        yarn link sharp
-        yarn --frozen-lockfile
+        yarn install --immutable --check-cache
     - name: Run Tests
       run: yarn test
     - name: Upload Coverage
