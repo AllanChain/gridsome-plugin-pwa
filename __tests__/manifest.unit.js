@@ -5,7 +5,7 @@ const {
 } = require('../lib/parseIconAndManifest')
 const { defaultOptions } = require('../gridsome.server')
 const defaultsDeep = require('lodash/defaultsDeep')
-const { useContext } = require('./utils')
+const { useContext } = require('./build-utils')
 
 const fakeConfig = {
   icon: { favicon: { src: './src/favicon.png' } },
@@ -22,7 +22,7 @@ const parse = userOptions => parseIconAndManifest(
   )
 )
 
-useContext()
+useContext('basic')
 
 describe('helper function iconType', () => {
   it('gets correct type', () => {
