@@ -2,12 +2,19 @@ node_modules/
 
 .vscode/
 
-# ignoring because this is a lib
-/yarn.lock
-
 yarn-error.log
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
 
 # module packs
 allanchain-gridsome-plugin-pwa-v*.tgz
 
 coverage/
+
+/examples/basic/gridsome/
+/examples/inject/dist/
+.temp/

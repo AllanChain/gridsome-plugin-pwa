@@ -1,12 +1,12 @@
 const fs = require('fs')
 
-const { dist, build, useContext } = require('./utils')
+const { distLocator, build, useContext } = require('./build-utils')
 
-useContext()
+const dist = distLocator('inject', 'dist')
+useContext('inject')
 
 beforeAll(async () => {
-  process.env.PWA_OPTIONS = 'injectManifest'
-  await build()
+  await build('inject')
 }, 60000)
 
 afterAll(() => {

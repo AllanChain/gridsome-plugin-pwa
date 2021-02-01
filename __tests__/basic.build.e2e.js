@@ -1,11 +1,12 @@
 const fs = require('fs')
 
-const { dist, build, useContext } = require('./utils')
+const { distLocator, build, useContext } = require('./build-utils')
 
-useContext()
+const dist = distLocator('basic', 'gridsome')
+useContext('basic')
 
 beforeAll(async () => {
-  await build()
+  await build('basic')
 }, 60000)
 
 describe('manifest.json', () => {
