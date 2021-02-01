@@ -1,3 +1,4 @@
+const path = require('path')
 const generateWorkboxConfig = require('../lib/generateWorkboxConfig')
 const { defaultOptions } = require('../gridsome.server')
 const defaultsDeep = require('lodash/defaultsDeep')
@@ -17,7 +18,7 @@ describe('Generate Workbox Config', () => {
   it('works with zero config', () => {
     const { workboxConfig, compileOptions } = workbox({})
     expect(workboxConfig.cacheId).toBe('Awesome Gridsome')
-    expect(workboxConfig.swDest).toBe('gridsome/service-worker.js')
+    expect(workboxConfig.swDest).toBe(path.join('gridsome', 'service-worker.js'))
     expect(compileOptions).toBe(false)
   })
   it('throws error on unknown mode', () => {
