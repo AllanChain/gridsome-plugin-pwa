@@ -1,6 +1,6 @@
 {
   "name": "@allanchain/gridsome-plugin-pwa",
-  "version": "0.3.0",
+  "version": "v0.4.0-alpha.0",
   "description": "Yet another PWA plugin for Gridsome",
   "main": "gridsome.server.js",
   "author": "AllanChain",
