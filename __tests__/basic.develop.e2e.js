@@ -1,18 +1,20 @@
 const path = require('path')
-const { spawn } = require('child_process')
+const { fork } = require('child_process')
 const axios = require('axios')
+const { useContext } = require('./build-utils')
 
 let developProcess
-const context = path.join(__dirname, '..', 'examples', 'basic')
 let hostUrl = 'http://localhost:8080'
 const get = async path => await axios.get(hostUrl + path)
 
+useContext('basic')
+
 beforeAll(() => {
   // Spawning process to easily kill it
-  developProcess = spawn(
-    path.join(context, 'node_modules', '.bin', 'gridsome'),
+  developProcess = fork(
+    path.join('node_modules', 'gridsome', 'bin', 'gridsome.js'),
     ['develop'],
-    { cwd: context }
+    { silent: true }
   )
   developProcess.stdout.setEncoding('utf-8')
   return new Promise(resolve => {
