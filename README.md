@@ -240,7 +240,7 @@ The path of app’s manifest. Different to `vue-cli`, currently you can only use
 
 ### manifestOptions
 
-Default: 
+Default:
 ```js
 {
   start_url: '.',
@@ -373,23 +373,14 @@ Active color of `appleMaskIcon`
 
 ## Developing and Testing
 
+Yarn 2 is used starting from `@allanchain/gridsome-plugin-pwa@0.4.0`, making commands much simler.
+
 ```bash
-# link this plugin to example project
-yarn link
-cd examples/basic
-yarn link @allanchain/gridsome-plugin-pwa
-# install example project dependencies
-yarn --frozen-lockfile
-# link peer dependency sharp
-cd node_modules/sharp
-yarn link
-cd ../../../..
-yarn link sharp
-# install plugin dependencies
-yarn --frozen-lockfile
+# Install for both root and example
+yarn
 ```
 
-Now you can make modifications to this plugin and run `yarn run develop` in example project to see the effect.
+Now you can make modifications to this plugin and run `yarn develop` in example project to see the effect.
 
 Or run `yarn test` in root dir of this project to see test results.
 
