@@ -3,8 +3,10 @@
 
 import DefaultLayout from '~/layouts/Default.vue'
 
-export default function (Vue, { isProd, isClient }) {
-  if (isProd && isClient) require('./registerServiceWorker')
+export default function (Vue, { isClient }) {
+  if (isClient && process.env.NODE_ENV === 'production') {
+    require('./registerServiceWorker')
+  }
   // Set default layout as a global component
   Vue.component('Layout', DefaultLayout)
 }
