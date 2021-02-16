@@ -3,7 +3,7 @@ function Plugin (api, options) {
 
   let manifest, clientOptions
   const { parseIconAndManifest } = require('./lib/parseIconAndManifest')
-  // Ensure set client option before generate temparate code
+  // Ensure set client option before generate temporary code
   api._app.hooks.beforeBootstrap.tapPromise(
     'GridsomePWAParse',
     async () => {
