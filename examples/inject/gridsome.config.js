@@ -13,6 +13,8 @@ module.exports = {
         },
         workboxCompileSrc: [
           new SplitChunksPlugin({
+            chunks: 'initial',
+            maxInitialRequests: Infinity,
             cacheGroups: {
               workbox: {
                 test: /[\\/]node_modules[\\/]/,

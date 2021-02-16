@@ -48,7 +48,7 @@ describe('manifest.json', () => {
 
 describe('icon', () => {
   it('is served', async () => {
-    const res = await get('/assets/icons/android-chrome-144x144.png')
+    const res = await get('/assets/static/src/favicon.png?width=144&key=a0741ab')
     expect(res.status).toBe(200)
   })
 })

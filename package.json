@@ -35,15 +35,15 @@
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "jest": "^26.1.0"
+    "jest": "^26.1.0",
+    "webpack": "^4.40.0"
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "sharp": "^0.25.2",
-    "webpack": "^4.40.0",
     "workbox-build": "^6.0.0"
   },
   "peerDependencies": {
-    "gridsome": "^0.7.0"
+    "gridsome": "^0.7.0",
+    "webpack": "^4.40.0"
   }
 }

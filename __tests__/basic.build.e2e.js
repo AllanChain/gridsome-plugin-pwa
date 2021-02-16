@@ -21,7 +21,7 @@ describe('manifest.json', () => {
     expect(manifest.start_url).toBe('/')
     expect(manifest.icons).toBeInstanceOf(Array)
     expect(manifest.icons).toContainEqual({
-      src: '/gridsome/assets/icons/android-chrome-192x192.png',
+      src: '/gridsome/assets/static/favicon.b49d4b1.test.png',
       type: 'image/png',
       sizes: '192x192',
       purpose: 'any'
@@ -35,12 +35,12 @@ describe('manifest.json', () => {
 })
 
 describe('icon', () => {
-  const icon = dist('assets', 'icons', 'android-chrome-192x192.png')
+  const icon = dist('assets', 'static', 'favicon.b49d4b1.test.png')
   it('exists', () => {
     expect(fs.existsSync(icon)).toBeTruthy()
   })
   it('has reasonable size', () => {
-    expect(fs.statSync(icon).size).toBeGreaterThan(30000)
+    expect(fs.statSync(icon).size).toBeGreaterThan(4000)
   })
 })
 
@@ -68,6 +68,10 @@ describe('sevice worker', () => {
   it('uses skip waiting', () => {
     expect(swContent).toMatch('skipWaiting()')
   })
+  it('does not have unexpected content', () => {
+    expect(swContent).not.toMatch('undefined')
+    expect(swContent).not.toMatch('//')
+  })
 })
 
 describe('meta', () => {
@@ -84,5 +88,9 @@ describe('meta', () => {
   })
   it('has mask icon', () => {
     expect(indexContent).toMatch('rel="mask-icon')
+  })
+  it('does not have unexpected content', () => {
+    expect(indexContent).not.toMatch('undefined')
+    expect(aboutContent).not.toMatch('//')
   })
 })
