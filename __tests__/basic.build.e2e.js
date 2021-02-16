@@ -1,13 +1,16 @@
 const fs = require('fs')
 
-const { distLocator, build, useContext } = require('./build-utils')
+const {
+  distLocator,
+  build,
+  useContext,
+  launchAndLighthouse
+} = require('./build-utils')
 
 const dist = distLocator('basic', 'gridsome')
 useContext('basic')
 
-beforeAll(async () => {
-  await build('basic')
-}, 60000)
+beforeAll(build, 60000)
 
 describe('manifest.json', () => {
   const manifestFilePath = dist('manifest.json')
@@ -18,13 +21,13 @@ describe('manifest.json', () => {
   })
   it('contains configured fields', () => {
     expect(manifest.short_name).toBe('Gridsome')
-    expect(manifest.start_url).toBe('/')
+    expect(manifest.start_url).toBe('.')
     expect(manifest.icons).toBeInstanceOf(Array)
     expect(manifest.icons).toContainEqual({
       src: '/gridsome/assets/icons/android-chrome-192x192.png',
       type: 'image/png',
       sizes: '192x192',
-      purpose: 'any'
+      purpose: 'maskable any'
     })
   })
   it('honors default options', () => {
@@ -85,4 +88,45 @@ describe('meta', () => {
   it('has mask icon', () => {
     expect(indexContent).toMatch('rel="mask-icon')
   })
+})
+
+describe('real browser', () => {
+  let consoleOutput, httpResponse, result
+  beforeAll(async () => {
+    ({ consoleOutput, httpResponse, result } = await launchAndLighthouse({
+      directory: './',
+      publicPath: '/gridsome/',
+      lighthouseConfig: {
+        extends: 'lighthouse:default',
+        settings: {
+          onlyCategories: ['pwa']
+        }
+      },
+      lighthouseOpts: {}
+    }))
+  }, 10000)
+  it('runs without error', () => {
+    const consoleOutputError = consoleOutput
+      .filter(message => message.type() === 'error')
+      .map(message => message.text())
+    expect(consoleOutputError).toHaveLength(0)
+  })
+  it('registers sw successfully', () => {
+    const consoleOutputText = consoleOutput.map(message => message.text())
+    expect(consoleOutputText).toContain('Service worker has been registered.')
+    expect(consoleOutputText).toContain('Content has been cached for offline use.')
+    expect(httpResponse.some(r => r.fromServiceWorker())).toBe(true)
+  })
+
+  const meaningfulAudits = [
+    'service-worker',
+    'installable-manifest',
+    'apple-touch-icon',
+    'splash-screen',
+    'themed-omnibox',
+    'maskable-icon'
+  ]
+  for (const audit of meaningfulAudits) {
+    it(`has ${audit}`, () => expect(result.lhr.audits[audit].score).toBe(1))
+  }
 })

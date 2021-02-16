@@ -11,14 +11,18 @@ module.exports = {
           description: 'Gridsome is awesome!',
           display: 'standalone',
           gcm_sender_id: undefined,
-          start_url: '/',
           categories: ['education'],
           lang: 'en-GB',
           dir: 'auto'
         },
         appleMobileWebAppStatusBarStyle: 'default',
         manifestPath: 'manifest.json',
-        icon: { appleMaskIcon: { url: './safari-pinned-tab.svg' } },
+        icon: {
+          androidChrome: {
+            maskable: true
+          },
+          appleMaskIcon: { url: './safari-pinned-tab.svg' }
+        },
         msTileColor: '#00a672',
         workboxOptions: {
           cacheId: 'awesome-pwa',

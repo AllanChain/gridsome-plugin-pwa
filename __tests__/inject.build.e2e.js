@@ -5,9 +5,7 @@ const { distLocator, build, useContext } = require('./build-utils')
 const dist = distLocator('inject', 'dist')
 useContext('inject')
 
-beforeAll(async () => {
-  await build('inject')
-}, 60000)
+beforeAll(build, 60000)
 
 afterAll(() => {
   process.env.PWA_OPTIONS = ''
