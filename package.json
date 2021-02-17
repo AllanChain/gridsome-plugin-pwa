@@ -42,7 +42,6 @@
     "webpack": "^4.40.0"
   },
   "dependencies": {
-    "core-js": "^3.6.5",
     "workbox-build": "^6.0.0"
   },
   "peerDependencies": {

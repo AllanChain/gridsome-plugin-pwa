@@ -22,7 +22,6 @@ __metadata:
   resolution: "@allanchain/gridsome-plugin-pwa@workspace:."
   dependencies:
     axios: ^0.21.0
-    core-js: ^3.6.5
     eslint: ^7.4.0
     eslint-config-standard: ^16.0.1
     eslint-plugin-import: ^2.22.0
