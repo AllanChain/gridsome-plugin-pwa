@@ -16,10 +16,10 @@ describe('manifest.json', () => {
     expect(manifest.start_url).toBe('.')
     expect(manifest.icons).toBeInstanceOf(Array)
     expect(manifest.icons).toContainEqual({
-      src: '/gridsome/assets/static/favicon.b49d4b1.test.png',
-      type: 'image/png',
-      sizes: '192x192',
-      purpose: 'maskable any'
+      src: '/gridsome/assets/static/favicon-maskable.cbda223.test.png',
+      sizes: '512x512',
+      purpose: 'maskable any',
+      type: 'image/png'
     })
   })
   it('honors default options', () => {
@@ -30,12 +30,12 @@ describe('manifest.json', () => {
 })
 
 describe('icon', () => {
-  const icon = dist('assets', 'static', 'favicon.b49d4b1.test.png')
+  const icon = dist('assets', 'static', 'favicon-maskable.9b6f2f7.test.png')
   it('exists', () => {
     expect(fs.existsSync(icon)).toBeTruthy()
   })
   it('has reasonable size', () => {
-    expect(fs.statSync(icon).size).toBeGreaterThan(4000)
+    expect(fs.statSync(icon).size).toBeGreaterThan(1000)
   })
 })
 

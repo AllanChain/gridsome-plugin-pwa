@@ -19,6 +19,7 @@ module.exports = {
         manifestPath: 'manifest.json',
         icon: {
           androidChrome: {
+            src: './src/favicon-maskable.png',
             maskable: true
           },
           appleMaskIcon: { url: './safari-pinned-tab.svg' }

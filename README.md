@@ -262,6 +262,8 @@ If the following attributes are not defined in the object, default options will 
 
 Default: your favicon, usually `./src/favicon.png`
 
+Note: you need a **at least 512x512** image to generate every needed icon.
+
 <details><summary>Or in detail</summary>
 
 ```js
