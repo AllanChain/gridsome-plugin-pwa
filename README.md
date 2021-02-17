@@ -35,6 +35,8 @@ This plugin is based on [gridsome-plugin-pwa](https://github.com/rishabh3112/gri
 
 It tries to be more similar to `cli-plugin-pwa`, but makes use of gridsome's image processing power.
 
+It uses jest, puppeteer and lighthouse for unit and e2e testing, to stabilize the plugin.
+
 ## Installation
 
 ### 1. Add to Dependencies
@@ -106,9 +108,6 @@ You can also checkout [example gridsome app](examples/basic/gridsome.config.js).
   }
 }
 ```
-
-
-
 
 ### 3. Register service worker
 
@@ -236,7 +235,7 @@ Default: `'default'`
 
 Default: `'manifest.json'`
 
-The path of app’s manifest. Different to `vue-cli`, currently you can only use the generated manifest.
+The path of app’s manifest. It will be prefixed with `publicPath`(e.g. `'/'`, `'/gridsome/'`) to generate the final manifest url. Different to `vue-cli`, currently you can only use the generated manifest.
 
 ### manifestOptions
 
@@ -393,7 +392,6 @@ Default: `'#00a672'`
 Default: `themeColor`
 
 Active color of `appleMaskIcon`
-
 
 ## Developing and Testing
 
