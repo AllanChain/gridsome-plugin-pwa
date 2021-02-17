@@ -1,9 +1,22 @@
 function Plugin (api, options) {
   options = Object.assign({ name: api.config.siteName }, options)
 
+  let manifest, clientOptions
   const { parseIconAndManifest } = require('./lib/parseIconAndManifest')
-  const { manifest, iconTasks, clientOptions } =
-    parseIconAndManifest(api.config, options)
+  // Ensure set client option before generate temporary code
+  api._app.hooks.beforeBootstrap.tapPromise(
+    'GridsomePWAParse',
+    async () => {
+      ({ manifest, clientOptions } = await parseIconAndManifest(
+        api._app, options
+      ))
+      api.setClientOptions({
+        ...options,
+        ...clientOptions,
+        publicPath: api.config.publicPath
+      })
+    }
+  )
 
   // shared between webpack and workbox config
   let workboxConfig, compileOptions
@@ -22,7 +35,7 @@ function Plugin (api, options) {
     const ManifestPlugin = require('./lib/manifestPlugin')
     webpackConfig
       .plugin('pwa-manifest')
-      .use(ManifestPlugin, [options.manifestPath, manifest, iconTasks])
+      .use(ManifestPlugin, [options.manifestPath, manifest])
 
     if (isProd && compileOptions) {
       const compileSWPlugin = require('./lib/compileSWPlugin')
@@ -42,12 +55,6 @@ function Plugin (api, options) {
 
   api.configureServer(app => {
     app.use(require('./lib/noopServiceWorkerMiddleware')())
-  })
-
-  api.setClientOptions({
-    ...options,
-    ...clientOptions,
-    publicPath: api.config.publicPath
   })
 }
 

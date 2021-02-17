@@ -1,5 +1,5 @@
+const path = require('path')
 const {
-  iconType,
   expandIconConfig,
   parseIconAndManifest
 } = require('../lib/parseIconAndManifest')
@@ -7,15 +7,10 @@ const { defaultOptions } = require('../gridsome.server')
 const defaultsDeep = require('lodash/defaultsDeep')
 const { useContext } = require('./build-utils')
 
-const fakeConfig = {
-  icon: { favicon: { src: './src/favicon.png' } },
-  publicPath: '/gridsome/'
-}
-
 const expand = config => expandIconConfig(config, './src/favicon.png')
 
-const parse = userOptions => parseIconAndManifest(
-  fakeConfig,
+const parse = async userOptions => await parseIconAndManifest(
+  process.GRIDSOME,
   Object.assign(
     { name: 'Awesome Gridsome' },
     defaultsDeep(userOptions, defaultOptions())
@@ -23,14 +18,16 @@ const parse = userOptions => parseIconAndManifest(
 )
 
 useContext('basic')
+beforeAll(() => {
+  const createApp = require(path.join(
+    process.cwd(), 'node_modules', 'gridsome', 'lib', 'app')
+  )
+  // Make expected path prefix
+  process.env.NODE_ENV = 'production'
+  createApp(process.cwd())
+})
+afterAll(() => {
 
-describe('helper function iconType', () => {
-  it('gets correct type', () => {
-    expect(iconType('./src/favicon.ico')).toBe('ico')
-  })
-  it('works on multiple dots', () => {
-    expect(iconType('./src/fav.a.b.c.png')).toBe('png')
-  })
 })
 
 describe('helper function expandIconConfig', () => {
@@ -51,36 +48,34 @@ describe('helper function expandIconConfig', () => {
 })
 
 describe('Generate Manifest', () => {
-  it('works with zero config', () => {
-    expect(parse({}).manifest.name).toBe('Awesome Gridsome')
+  it('works with zero config', async () => {
+    const { manifest } = await parse({})
+    expect(manifest.name).toBe('Awesome Gridsome')
+    expect(JSON.stringify(manifest)).not.toMatch('//')
+    expect(JSON.stringify(manifest)).not.toMatch('undefined')
+    expect(manifest.icons[0].type).toBe('image/png')
   })
-  it('does no have double slashes', () => {
-    expect(JSON.stringify(parse({}).manifest)).not.toMatch('//')
+  it('throws error if icon not found', async () => {
+    await expect(parse({ icon: 'src/not.exist.png' }))
+      .rejects.toThrow('not found')
   })
-  it('gets correct icon type', () => {
-    expect(parse({}).manifest.icons[0].type).toBe('image/png')
-  })
-  it('throws error if icon not found', () => {
-    expect(() => parse({ icon: 'src/not.exist.png' }))
-      .toThrow('not found')
-  })
-  it('throws if urls and sizes not match', () => {
-    expect(() => parse({
+  it('throws if urls and sizes not match', async () => {
+    await expect(parse({
       icon: { androidChrome: { sizes: [], urls: ['/fav.ico'] } }
-    })).toThrow('not match')
+    })).rejects.toThrow('not match')
   })
 })
 
 describe('client options', () => {
-  it('returns correct by default', () => {
-    const clientOptions = parse({}).clientOptions
+  it('returns correct by default', async () => {
+    const clientOptions = (await parse({})).clientOptions
     expect(clientOptions.msTileImage)
-      .toBe('/gridsome/assets/icons/msapplication-icon-144x144.png')
+      .toBe('/gridsome/assets/static/favicon.d8f1621.test.png')
     expect(clientOptions.appleMaskIcon).toBe(null)
   })
-  it('respects provided', () => {
-    expect(parse({
+  it('respects provided', async () => {
+    expect((await parse({
       icon: { appleMaskIcon: { url: './safari-pinned-tab.svg' } }
-    }).clientOptions.appleMaskIcon).toBe('./safari-pinned-tab.svg')
+    })).clientOptions.appleMaskIcon).toBe('./safari-pinned-tab.svg')
   })
 })

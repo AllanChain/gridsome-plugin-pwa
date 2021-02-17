@@ -8,7 +8,7 @@ import('./sw-lib.js').then(({
     precacheAndRoute(self.__WB_MANIFEST);
 
     registerRoute(
-      new NavigationRoute(createHandlerBoundToURL('/gridsome/index.html'))
+      new NavigationRoute(createHandlerBoundToURL('/index.html'))
     )
   }
 )

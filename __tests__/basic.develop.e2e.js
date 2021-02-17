@@ -35,7 +35,7 @@ afterAll(() => {
   developProcess.kill('SIGINT')
 })
 
-describe('manifest.json', () => {
+describe('manifest', () => {
   let res
   it('is served', async () => {
     res = await get('/manifest.json')
@@ -44,12 +44,10 @@ describe('manifest.json', () => {
   it('looks not bad', () => {
     expect(res.data.short_name).toBe('Gridsome')
   })
-})
-
-describe('icon', () => {
-  it('is served', async () => {
-    const res = await get('/assets/icons/android-chrome-144x144.png')
-    expect(res.status).toBe(200)
+  it('has correct icon', async () => {
+    return get(res.data.icons[0].src).then(
+      res => expect(res.status).toBe(200)
+    )
   })
 })
 

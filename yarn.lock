@@ -32,11 +32,11 @@ __metadata:
     lighthouse: ^7.0.1
     puppeteer: ^7.0.1
     serve: ^11.3.2
-    sharp: ^0.25.2
     webpack: ^4.40.0
     workbox-build: ^6.0.0
   peerDependencies:
     gridsome: ^0.7.0
+    webpack: ^4.40.0
   languageName: unknown
   linkType: soft
 
@@ -7974,7 +7974,6 @@ fsevents@~2.1.2:
     "@allanchain/gridsome-plugin-pwa": "link:../.."
     gridsome: ^0.7.0
     register-service-worker: ^1.6.2
-    workbox-build: ^6.0.0
   languageName: unknown
   linkType: soft
 

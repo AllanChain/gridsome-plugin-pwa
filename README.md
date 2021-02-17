@@ -268,14 +268,12 @@ Default: your favicon, usually `./src/favicon.png`
 {
   androidChrome: {
     src, // your favicon, usually `./src/favicon.png`
-    name: 'android-chrome',
     sizes: [512, 384, 192, 144, 96, 72, 48],
     maskable: false,
     urls: null
   },
   msTileImage: {
     src,
-    name: 'msapplication-icon',
     size: 144,
     url: null
   },
@@ -306,14 +304,13 @@ Or you can configure Android Chrome (icons in `manifest.json`) icon file:
 }
 ```
 
-Also configure output name, sizes and maskable:
+Also configure output sizes and maskable:
 
 ```js
 {
   icon: {
     androidChrome: {
       src: './src/my-icon.png',
-      name: 'android-chrome',
       sizes: [512, 384, 192, 144, 96, 72, 48],
       maskable: true
     }

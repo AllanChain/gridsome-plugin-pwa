@@ -12,14 +12,14 @@ describe('sevice worker', () => {
     swContent = fs.readFileSync(sw, 'utf8')
   })
   it('splits chunk', () => {
+    expect(swContent).toMatch('importScripts')
     expect(fs.statSync(sw).size).toBeGreaterThan(4000)
     expect(fs.statSync(sw).size).toBeLessThan(20000)
-    expect(swContent).toMatch('importScripts')
   })
   it('includes original code', () => {
-    expect(swContent).toMatch('/gridsome/index.html')
+    expect(swContent).toMatch('/index.html')
   })
   it('injects manfest', () => {
-    expect(swContent).toMatch('')
+    expect(swContent).toMatch(/"revision":"[\da-f]+"/)
   })
 })

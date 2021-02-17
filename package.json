@@ -38,15 +38,15 @@
     "jest": "^26.1.0",
     "lighthouse": "^7.0.1",
     "puppeteer": "^7.0.1",
-    "serve": "^11.3.2"
+    "serve": "^11.3.2",
+    "webpack": "^4.40.0"
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "sharp": "^0.25.2",
-    "webpack": "^4.40.0",
     "workbox-build": "^6.0.0"
   },
   "peerDependencies": {
-    "gridsome": "^0.7.0"
+    "gridsome": "^0.7.0",
+    "webpack": "^4.40.0"
   }
 }

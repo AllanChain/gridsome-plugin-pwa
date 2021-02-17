@@ -9,7 +9,6 @@
   "dependencies": {
     "@allanchain/gridsome-plugin-pwa": "link:../..",
     "gridsome": "^0.7.0",
-    "register-service-worker": "^1.6.2",
-    "workbox-build": "^6.0.0"
+    "register-service-worker": "^1.6.2"
   }
 }
