@@ -15,6 +15,7 @@ describe('manifest.json', () => {
     expect(manifest.short_name).toBe('Gridsome')
     expect(manifest.start_url).toBe('.')
     expect(manifest.icons).toBeInstanceOf(Array)
+    expect(manifest.icons).toHaveLength(5)
     expect(manifest.icons).toContainEqual({
       src: '/gridsome/assets/static/favicon-maskable.cbda223.test.png',
       sizes: '512x512',
