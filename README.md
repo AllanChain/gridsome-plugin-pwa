@@ -7,6 +7,12 @@
 
 :warning: **status: not so stable, contributions welcome**
 
+This is the docs for master. For older releases, check out
+[v0.3.0](https://github.com/AllanChain/gridsome-plugin-pwa/blob/v0.3.0/README.md),
+[v0.2.5](https://github.com/AllanChain/gridsome-plugin-pwa/blob/v0.2.5/README.md)
+
+---
+
 - [Overview](#overview)
 - [Installation](#installation)
   - [1. Add to Dependencies](#1-add-to-dependencies)
