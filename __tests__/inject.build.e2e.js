@@ -1,15 +1,8 @@
 const fs = require('fs')
 
-const { distLocator, build, useContext } = require('./build-utils')
+const { useBuild } = require('./build-utils')
 
-const dist = distLocator('inject', 'dist')
-useContext('inject')
-
-beforeAll(build, 60000)
-
-afterAll(() => {
-  process.env.PWA_OPTIONS = ''
-})
+const dist = useBuild('inject', 'dist')
 
 describe('sevice worker', () => {
   const sw = dist('service-worker.js')
