@@ -18,10 +18,23 @@ module.exports = {
         appleMobileWebAppStatusBarStyle: 'default',
         manifestPath: 'manifest.json',
         icon: {
-          androidChrome: {
-            src: './src/favicon-maskable.png',
-            maskable: true
-          },
+          androidChrome: [
+            {
+              src: './src/favicon-maskable.png',
+              sizes: [512, 384, 192],
+              purpose: 'maskable'
+            },
+            {
+              sizes: [144],
+              purpose: 'any'
+            },
+            {
+              urls: [
+                '/gridsome/assets/static/favicon.7b22250.9bb7ffafafc09ac851d81afb65b8ef59.png'
+              ],
+              sizes: [180]
+            }
+          ],
           appleMaskIcon: { url: './safari-pinned-tab.svg' }
         },
         msTileColor: '#00a672',

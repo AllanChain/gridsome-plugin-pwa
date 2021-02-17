@@ -49,7 +49,7 @@ yarn add @allanchain/gridsome-plugin-pwa register-service-worker
 
 ### 2. Register as Gridsome Plugin
 
-This plugin should work with zero config (you still nead step 3) if your icon file is `src/favicon.png`
+This plugin should work with zero config (you still nead step 3) if your favicon source image is at least `512x512`
 
 ```js
 // gridsome.config.js
@@ -268,12 +268,12 @@ Note: you need a **at least 512x512** image to generate every needed icon.
 
 ```js
 {
-  androidChrome: {
+  androidChrome: [{
     src, // your favicon, usually `./src/favicon.png`
     sizes: [512, 384, 192, 144, 96, 72, 48],
-    maskable: false,
+    purpose: 'any',
     urls: null
-  },
+  }],
   msTileImage: {
     src,
     size: 144,
@@ -312,15 +312,40 @@ Also configure output sizes and maskable:
 {
   icon: {
     androidChrome: {
-      src: './src/my-icon.png',
+      src: './src/maskable-icon.png',
       sizes: [512, 384, 192, 144, 96, 72, 48],
-      maskable: true
+      purpose: 'maskable'
     }
   }
 }
 ```
 
-This will generate `android-chrome-512x512.png`, `android-chrome-384x364.png`... from `./src/my-icon.png`, and mark them as maskable.
+The above config will generate `android-chrome-512x512.png`, `android-chrome-384x364.png`... from `./src/my-icon.png`, and mark them as maskable.
+
+And it is also possible to use different source for `'maskable'` and `'any'`:
+
+```js
+{
+  icon: {
+    androidChrome: [
+      {
+        src: './src/my-icon.png',
+        sizes: [512, 384, 192, 144, 96, 72, 48],
+        purpose: 'any'
+      },
+      {
+        src: './src/maskable-icon.png',
+        sizes: [512, 384, 192, 144, 96, 72, 48],
+        purpose: 'maskable'
+      }
+    ]
+  }
+}
+```
+
+Although it is possible to set `purpose` to `'maskable any'`, it is not recommended, as explained in [Adaptive icon support in PWAs with maskable icons](https://web.dev/maskable-icon/):
+
+> While you can specify multiple space-separated purposes like `"any maskable"`, in practice you shouldn't. Using `"maskable"` icons as `"any"` icons is suboptimal as the icon is going to be used as-is, resulting in excess padding and making the core icon content smaller. Ideally, icons for the `"any"` purpose should have transparent regions and no extra padding, like your site's favicons, since the browser isn't going to add that for them.
 
 If you don't want icons to be generated, provide URLs:
 
@@ -372,7 +397,7 @@ Active color of `appleMaskIcon`
 
 ## Developing and Testing
 
-Yarn 2 is used starting from `@allanchain/gridsome-plugin-pwa@0.4.0`, making commands much simler.
+Yarn 2 is used starting from `@allanchain/gridsome-plugin-pwa@0.4.0`, making commands much simpler.
 
 ```bash
 # Install for both root and example

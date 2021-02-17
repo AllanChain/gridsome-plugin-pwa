@@ -38,11 +38,24 @@ describe('helper function expandIconConfig', () => {
   it('works with a string', () => {
     const config = expand('favicon.ico')
     expect(config.msTileImage.src).toBe('favicon.ico')
-    expect(config.androidChrome.name).toBe('android-chrome')
+    expect(config.androidChrome[0].src).toBe('favicon.ico')
+    expect(config.androidChrome[0].purpose).toBe('any')
   })
-  it('works if androiidChrome is a string', () => {
+  it('works if androidChrome is a string', () => {
     const config = expand({ androidChrome: 'favicon.ico' })
-    expect(config.androidChrome.src).toBe('favicon.ico')
+    expect(config.androidChrome[0].src).toBe('favicon.ico')
+    expect(config.androidChrome[0].purpose).toBe('any')
+    expect(config.msTileImage.src).toBe('./src/favicon.png')
+  })
+  it('works if androidChrome is an array', () => {
+    const config = expand({
+      androidChrome: [
+        { src: 'favicon.ico', purpose: 'maskable' },
+        { src: 'favicon-maskable.png', purpose: 'any' }
+      ]
+    })
+    expect(config.androidChrome[0].src).toBe('favicon.ico')
+    expect(config.androidChrome[1].src).toBe('favicon-maskable.png')
     expect(config.msTileImage.src).toBe('./src/favicon.png')
   })
 })

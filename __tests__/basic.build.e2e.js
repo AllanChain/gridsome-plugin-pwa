@@ -18,7 +18,7 @@ describe('manifest.json', () => {
     expect(manifest.icons).toContainEqual({
       src: '/gridsome/assets/static/favicon-maskable.cbda223.test.png',
       sizes: '512x512',
-      purpose: 'maskable any',
+      purpose: 'maskable',
       type: 'image/png'
     })
   })
