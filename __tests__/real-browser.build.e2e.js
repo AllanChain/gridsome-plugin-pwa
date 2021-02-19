@@ -13,7 +13,7 @@ const lighthouseConfig = {
   extends: 'lighthouse:default',
   settings: {
     onlyCategories: ['pwa']
-  },
+  }
   // audits
 }
 
