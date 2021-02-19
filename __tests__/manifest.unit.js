@@ -72,6 +72,15 @@ describe('Generate Manifest', () => {
     await expect(parse({ icon: 'src/not.exist.png' }))
       .rejects.toThrow('not found')
   })
+  it('throws error if icon outside project', async () => {
+    await expect(parse({ icon: '../inject/src/favicon.png' }))
+      .rejects.toThrow('outside project')
+  })
+  it('warns on small source image', async () => {
+    const consoleSpy = jest.spyOn(console, 'warn')
+    await parse({ icon: { androidChrome: { sizes: [512] } } })
+    expect(consoleSpy.mock.calls[0][0]).toMatch('512')
+  })
   it('throws if urls and sizes not match', async () => {
     await expect(parse({
       icon: { androidChrome: { sizes: [], urls: ['/fav.ico'] } }
