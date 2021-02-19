@@ -39,7 +39,10 @@ module.exports = {
   useBuild: useBuild(build),
   useTrueBuild: useBuild(trueBuild),
   async launchAndLighthouse ({
-    directory, publicPath, lighthouseConfig, lighthouseOpts
+    directory = './',
+    publicPath = '/',
+    lighthouseConfig,
+    lighthouseOpts
   }) {
     const handler = require('serve-handler')
     const http = require('http')
@@ -58,6 +61,7 @@ module.exports = {
       args: ['--disable-gpu', '--enable-features=NetworkService'],
       ignoreHTTPSErrors: true
     })
+    lighthouseOpts = lighthouseOpts || {}
     lighthouseOpts.port = new URL(browser.wsEndpoint()).port
     try {
       const consoleOutput = []

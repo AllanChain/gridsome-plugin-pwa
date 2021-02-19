@@ -1,5 +1,5 @@
 // https://github.com/AllanChain/gridsome-plugin-pwa/issues/9
-import('./sw-lib.js').then(({
+import(/* webpackChunkName: "sw-lib" */ './sw-lib.js').then(({
     registerRoute,
     NavigationRoute,
     precacheAndRoute,
@@ -8,7 +8,7 @@ import('./sw-lib.js').then(({
     precacheAndRoute(self.__WB_MANIFEST);
 
     registerRoute(
-      new NavigationRoute(createHandlerBoundToURL('/index.html'))
+      new NavigationRoute(createHandlerBoundToURL(APP_SHELL))
     )
   }
 )

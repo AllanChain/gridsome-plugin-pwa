@@ -13,13 +13,15 @@ describe('sevice worker', () => {
   })
   it('splits chunk', () => {
     expect(swContent).toMatch('importScripts')
-    expect(fs.statSync(sw).size).toBeGreaterThan(4000)
-    expect(fs.statSync(sw).size).toBeLessThan(20000)
+    expect(fs.existsSync(dist('assets', 'js', 'sw-lib.js'))).toBe(true)
   })
-  it('includes original code', () => {
-    expect(swContent).toMatch('/index.html')
+  it('includes precache and navigation route', () => {
+    expect(swContent.match(/"\/index\.html"/g)).toHaveLength(2)
   })
   it('injects manfest', () => {
     expect(swContent).toMatch(/"revision":"[\da-f]+"/)
+  })
+  it('applies DefinePlugin', () => {
+    expect(swContent).not.toMatch('APP_SHELL')
   })
 })

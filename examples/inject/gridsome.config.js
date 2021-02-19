@@ -1,4 +1,4 @@
-const SplitChunksPlugin = require('webpack/lib/optimize/SplitChunksPlugin')
+const webpack = require('webpack')
 
 module.exports = {
   siteName: 'Awesome Gridsome',
@@ -12,17 +12,19 @@ module.exports = {
           globPatterns: ['assets/@(js|css)/*', 'index.html']
         },
         workboxCompileSrc: [
-          new SplitChunksPlugin({
-            chunks: 'initial',
-            maxInitialRequests: Infinity,
-            cacheGroups: {
-              workbox: {
-                test: /[\\/]node_modules[\\/]/,
-                chunks: 'initial'
-              }
-            }
+          new webpack.DefinePlugin({
+            APP_SHELL: JSON.stringify('/index.html')
           })
-        ]
+        ],
+        icon: {
+          androidChrome: [
+            {
+              src: 'src/favicon-maskable.png',
+              sizes: [512, 384, 192],
+              purpose: 'maskable'
+            },
+          ]
+        }
       }
     }
   ]
