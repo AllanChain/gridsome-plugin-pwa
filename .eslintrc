@@ -3,7 +3,7 @@
   "env": {
     "jest": true
   },
-  "ignorePatterns": ["node_moudules/", "examples/", "service-worker.js"],
+  "ignorePatterns": ["node_moudules/", "dist/", "gridsome/"],
   "rules": {
     "no-console": "warn"
   }
