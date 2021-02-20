@@ -38,49 +38,26 @@ module.exports = {
   useContext,
   useBuild: useBuild(build),
   useTrueBuild: useBuild(trueBuild),
-  async launchAndLighthouse ({
-    directory = './',
-    publicPath = '/',
-    lighthouseConfig,
-    lighthouseOpts
-  }) {
+  useBrowser (directory, port) {
+    const fixture = {}
     const handler = require('serve-handler')
     const http = require('http')
     const puppeteer = require('puppeteer')
-    const lighthouse = require('lighthouse')
-
-    const port = 3000
-    const url = `http://localhost:${port}${publicPath}`
-
-    const server = http.createServer((request, response) => {
-      return handler(request, response, { public: directory })
+    beforeAll(async () => {
+      fixture.server = http.createServer((request, response) => {
+        return handler(request, response, { public: directory })
+      })
+      fixture.server.listen(port)
+      fixture.browser = await puppeteer.launch({
+        headless: true,
+        args: ['--disable-gpu', '--enable-features=NetworkService'],
+        ignoreHTTPSErrors: true
+      })
     })
-    server.listen(port)
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ['--disable-gpu', '--enable-features=NetworkService'],
-      ignoreHTTPSErrors: true
+    afterAll(async () => {
+      await fixture.browser.close()
+      fixture.server.close()
     })
-    lighthouseOpts = lighthouseOpts || {}
-    lighthouseOpts.port = new URL(browser.wsEndpoint()).port
-    try {
-      const consoleOutput = []
-      const httpResponse = []
-      for (let _ = 0; _ < 2; _++) { // simulate open again
-        const page = await browser.newPage()
-        page.on('console', consoleOutput.push.bind(consoleOutput))
-        page.on('response', httpResponse.push.bind(httpResponse))
-        await page.goto(url, { waitUntil: 'networkidle0' })
-        page.close()
-      }
-      return {
-        consoleOutput,
-        httpResponse,
-        result: await lighthouse(url, lighthouseOpts, lighthouseConfig)
-      }
-    } finally {
-      browser.close()
-      server.close()
-    }
+    return fixture
   }
 }

@@ -23,6 +23,7 @@ This is the docs for master. For older releases, check out
   - [workboxPluginMode](#workboxpluginmode)
   - [workboxCompileSrc](#workboxcompilesrc)
   - [workboxOptions](#workboxoptions)
+  - [appShellPath](#appshellpath)
   - [name](#name)
   - [themeColor](#themecolor)
   - [appleMobileWebAppCapable](#applemobilewebappcapable)
@@ -216,6 +217,20 @@ For more information on what values are supported, please see the guide for
 or for [`injectManifest`](https://developers.google.com/web/tools/workbox/modules/workbox-build#full_injectManifest_config).
 
 **It is not recommended to precache all files**, because your site can be large. Instead, precache important files and consider runtime caching for other files.
+
+### appShellPath
+
+Default: `null`
+
+:warning: This is a very experimental feature, or rather, a proof of concept.
+
+The relative file path from `outputDir` to the html file for app shell. Only makes sense when using `injectManifest` mode and registering a `NavigationRoute` in `service-worker.js`. You may also want to check out [`injectManifest` example](examples/inject).
+
+Sourced from [gatsby-plugin-offline doc](https://www.gatsbyjs.com/plugins/gatsby-plugin-offline/#app-shell-and-server-logs):
+
+> The app shell is a minimal amount of user interface that can be cached offline for reliable performance loading on repeat visits.
+
+As for gridsome, it checks `window.__INITIAL_STATE__` for data (mostly page query results), falling back to fetch data from json files. All this plugin does is deleting `window.__INITIAL_STATE__` in `appShellPath` html, telling gridsome to fetch data from json files. You should define app shell behavior in `service-worker.js`.
 
 ### name
 

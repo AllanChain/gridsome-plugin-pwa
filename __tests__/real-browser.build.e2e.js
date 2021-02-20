@@ -1,4 +1,4 @@
-const { launchAndLighthouse, useTrueBuild, useContext } = require('./build-utils')
+const { useBrowser, useTrueBuild, useContext } = require('./build-utils')
 const desktopConfig = require('lighthouse/lighthouse-core/config/desktop-config')
 
 const audits = [
@@ -13,9 +13,10 @@ const lighthouseConfig = {
   extends: 'lighthouse:default',
   settings: {
     onlyCategories: ['pwa']
-  }
-  // audits
+  },
+  audits
 }
+const port = 3000
 
 const CONFIGS = {
   basic: {
@@ -39,13 +40,32 @@ useTrueBuild('basic', 'gridsome')
 useTrueBuild('inject', 'dist')
 
 for (const configName in CONFIGS) {
-  describe(`${configName} in real browser`, () => {
+  describe(`${configName} in real browser`, async () => {
     useContext(CONFIGS[configName].name)
-    let consoleOutput, httpResponse, result
+    const { directory = './' } = CONFIGS[configName]
+    const browserFixture = useBrowser(directory, port)
+    const consoleOutput = []
+    const httpResponse = []
+    let result
     beforeAll(async () => {
-      ({ consoleOutput, httpResponse, result } = await launchAndLighthouse(
-        CONFIGS[configName]
-      ))
+      const lighthouse = require('lighthouse')
+      const { browser } = browserFixture
+      const {
+        publicPath = '/',
+        lighthouseConfig,
+        lighthouseOpts = {}
+      } = CONFIGS[configName]
+      const url = `http://localhost:${port}${publicPath}`
+
+      for (let _ = 0; _ < 2; _++) { // simulate open again
+        const page = await browser.newPage()
+        page.on('console', consoleOutput.push.bind(consoleOutput))
+        page.on('response', httpResponse.push.bind(httpResponse))
+        await page.goto(url, { waitUntil: 'networkidle0' })
+        await page.close()
+      }
+      lighthouseOpts.port = new URL(browser.wsEndpoint()).port
+      result = await lighthouse(url, lighthouseOpts, lighthouseConfig)
     }, 30000)
     it('runs without error', () => {
       const consoleOutputError = consoleOutput
@@ -64,3 +84,36 @@ for (const configName in CONFIGS) {
     }
   })
 }
+
+describe('app shell', () => {
+  useContext('inject')
+  const browserFixture = useBrowser('dist', port)
+  const url = `http://localhost:${port}/`
+  const blogUrl = `http://localhost:${port}/blog/say-hello-to-gridsome/`
+  beforeAll(async () => { // cache pwa
+    const { browser } = browserFixture
+    const page = await browser.newPage()
+    await page.goto(url, { waitUntil: 'networkidle0' })
+    await page.close()
+  })
+  it('runs app shell without error', async () => {
+    const { browser } = browserFixture
+    const consoleOutput = []
+    const httpResponse = []
+    const page = await browser.newPage()
+    page.on('console', consoleOutput.push.bind(consoleOutput))
+    page.on('response', httpResponse.push.bind(httpResponse))
+    await page.goto(blogUrl, { waitUntil: 'networkidle0' })
+    expect(consoleOutput
+      .filter(message => message.type() === 'error')
+      .map(message => message.text())
+    ).toHaveLength(0)
+    // First response is always document
+    expect(httpResponse[0].fromServiceWorker()).toBe(true)
+    expect(await httpResponse[0].text()).toMatch('html')
+    expect(await httpResponse[0].text()).not.toMatch('Gatsby')
+    const contentText = await page.$eval('#content', el => el.innerText)
+    expect(contentText).toMatch('Gatsby')
+    await page.close()
+  })
+})

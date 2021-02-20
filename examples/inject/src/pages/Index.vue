@@ -11,12 +11,30 @@
     </p>
 
     <p class="home-links">
-      <a href="https://gridsome.org/docs/" target="_blank" rel="noopener">Gridsome Docs</a>
-      <a href="https://github.com/gridsome/gridsome" target="_blank" rel="noopener">GitHub</a>
+      <ul>
+        <li v-for="edge of $static.allBlogPost.edges" :key="edge.node.id">
+          <g-link :to="edge.node.path">{{edge.node.title}}</g-link>
+        </li>
+      </ul>
     </p>
+
 
   </Layout>
 </template>
+
+<static-query>
+query {
+  allBlogPost {
+    edges {
+      node {
+        id
+        title
+        path
+      }
+    }
+  }
+}
+</static-query>
 
 <script>
 export default {

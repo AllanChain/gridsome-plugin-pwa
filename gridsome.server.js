@@ -1,3 +1,4 @@
+const path = require('path')
 function Plugin (api, options) {
   options = Object.assign({ name: api.config.siteName }, options)
 
@@ -46,6 +47,10 @@ function Plugin (api, options) {
   })
 
   api.afterBuild(async () => {
+    if (options.appShellPath) {
+      const patchAppShell = require('./lib/appShellPatcher')
+      patchAppShell(path.resolve(api.config.outputDir, options.appShellPath))
+    }
     const workboxBuildModule = require('workbox-build')
     const workboxBuildFunc = workboxBuildModule[options.workboxPluginMode]
     const { count, size } = await workboxBuildFunc(workboxConfig)
@@ -72,7 +77,8 @@ Plugin.defaultOptions = () => ({
   msTileColor: '#00a672',
   workboxPluginMode: 'generateSW',
   workboxCompileSrc: true,
-  workboxOptions: {}
+  workboxOptions: {},
+  appShellPath: null
 })
 
 module.exports = Plugin

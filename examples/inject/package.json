@@ -8,7 +8,11 @@
   },
   "dependencies": {
     "@allanchain/gridsome-plugin-pwa": "link:../..",
+    "@gridsome/transformer-remark": "^0.6.4",
     "gridsome": "^0.7.0",
     "register-service-worker": "^1.6.2"
+  },
+  "devDependencies": {
+    "@gridsome/source-filesystem": "^0.6.2"
   }
 }

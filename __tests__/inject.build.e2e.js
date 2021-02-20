@@ -16,12 +16,12 @@ describe('sevice worker', () => {
     expect(fs.existsSync(dist('assets', 'js', 'sw-lib.js'))).toBe(true)
   })
   it('includes precache and navigation route', () => {
-    expect(swContent.match(/"\/index\.html"/g)).toHaveLength(2)
+    expect(swContent.match(/"\/offline\/index\.html"/g)).toHaveLength(2)
   })
   it('injects manfest', () => {
     expect(swContent).toMatch(/"revision":"[\da-f]+"/)
   })
   it('applies DefinePlugin', () => {
-    expect(swContent).not.toMatch('APP_SHELL')
+    expect(swContent).not.toMatch('(APP_SHELL)')
   })
 })
