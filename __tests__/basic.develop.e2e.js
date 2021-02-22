@@ -45,7 +45,7 @@ describe('manifest', () => {
     expect(res.data.short_name).toBe('Gridsome')
   })
   it('has correct icon', async () => {
-    return get(res.data.icons[3].src).then(
+    return get(res.data.icons[0].src).then(
       res => expect(res.status).toBe(200)
     )
   })
