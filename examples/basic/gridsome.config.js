@@ -38,9 +38,12 @@ module.exports = {
           appleMaskIcon: { url: './safari-pinned-tab.svg' }
         },
         msTileColor: '#00a672',
+        appShellPath: 'offline/index.html',
         workboxOptions: {
           cacheId: 'awesome-pwa',
-          globPatterns: ['assets/@(js|css)/*', 'index.html'],
+          globPatterns: ['assets/@(js|css)/*', 'offline/index.html'],
+          navigateFallback: '/gridsome/offline/index.html',
+          navigateFallbackAllowlist: [/\/$/],
           skipWaiting: true
         }
       }

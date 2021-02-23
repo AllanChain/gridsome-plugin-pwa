@@ -85,7 +85,7 @@ for (const configName in CONFIGS) {
   })
 }
 
-describe('app shell', () => {
+describe('app shell of inject', () => {
   useContext('inject')
   const browserFixture = useBrowser('dist', port)
   const url = `http://localhost:${port}/`
@@ -114,6 +114,30 @@ describe('app shell', () => {
     expect(await httpResponse[0].text()).not.toMatch('Gatsby')
     const contentText = await page.$eval('#content', el => el.innerText)
     expect(contentText).toMatch('Gatsby')
+    await page.close()
+  })
+})
+
+describe('app shell of basic', () => {
+  useContext('basic')
+  const browserFixture = useBrowser('./', port)
+  const aboutUrl = `http://localhost:${port}/gridsome/about/`
+  beforeAll(async () => { // cache pwa
+    const { browser } = browserFixture
+    const page = await browser.newPage()
+    await page.goto(aboutUrl, { waitUntil: 'networkidle0' })
+    await page.close()
+  })
+  it('runs app shell without error', async () => {
+    const { browser } = browserFixture
+    const httpResponse = []
+    const page = await browser.newPage()
+    page.on('response', httpResponse.push.bind(httpResponse))
+    await page.goto(aboutUrl, { waitUntil: 'networkidle0' })
+    // First response is always document
+    expect(httpResponse[0].fromServiceWorker()).toBe(true)
+    expect(await httpResponse[0].text()).toMatch('html')
+    expect(await httpResponse[0].text()).not.toMatch('About us')
     await page.close()
   })
 })

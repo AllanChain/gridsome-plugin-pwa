@@ -59,7 +59,7 @@ describe('sevice worker', () => {
   })
   it('includes prefetch assets', () => {
     expect(swContent).toMatch('/gridsome/assets/js/app')
-    expect(swContent).toMatch('/gridsome/index.html')
+    expect(swContent).toMatch('/gridsome/offline/index.html')
   })
   it('uses skip waiting', () => {
     expect(swContent).toMatch('skipWaiting()')
