@@ -110,8 +110,11 @@ describe('app shell of inject', () => {
     ).toHaveLength(0)
     // First response is always document
     expect(httpResponse[0].fromServiceWorker()).toBe(true)
-    expect(await httpResponse[0].text()).toMatch('html')
-    expect(await httpResponse[0].text()).not.toMatch('Gatsby')
+    const html = await httpResponse[0].text()
+    expect(html).toMatch('html')
+    expect(html).not.toMatch('Gatsby')
+    expect(html).not.toMatch('data-server-rendered')
+    expect(html).not.toMatch('data-html-server-rendered')
     const contentText = await page.$eval('#content', el => el.innerText)
     expect(contentText).toMatch('Gatsby')
     await page.close()
