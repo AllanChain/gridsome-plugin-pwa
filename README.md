@@ -224,13 +224,37 @@ Default: `null`
 
 :warning: This is a very experimental feature, or rather, a proof of concept.
 
-The relative file path from `outputDir` to the html file for app shell. Only makes sense when using `injectManifest` mode and registering a `NavigationRoute` in `service-worker.js`. You may also want to check out [`injectManifest` example](examples/inject).
+The relative file path from `outputDir` to the html file for app shell. Only makes sense when using navigation fallback.
+
+For example:
+
+- Using `generateSW` mode and setting up `navigateFallback`:
+  ```js
+  {
+    appShellPath: 'offline/index.html',
+    workboxOptions: {
+      globPatterns: ['assets/@(js|css)/*', 'offline/index.html'],
+      navigateFallback: '/gridsome/offline/index.html',
+      navigateFallbackAllowlist: [/\/$/]
+    }
+  }
+  ```
+- Using `injectManifest` mode and registering a `NavigationRoute` in `service-worker.js`.
+  ```js
+  registerRoute(
+    new NavigationRoute(createHandlerBoundToURL(APP_SHELL), {
+      allowlist: [/\/$/]
+    })
+  )
+  ```
+
+You may also want to check out [examples](examples).
 
 Sourced from [gatsby-plugin-offline doc](https://www.gatsbyjs.com/plugins/gatsby-plugin-offline/#app-shell-and-server-logs):
 
 > The app shell is a minimal amount of user interface that can be cached offline for reliable performance loading on repeat visits.
 
-As for gridsome, it checks `window.__INITIAL_STATE__` for data (mostly page query results), falling back to fetch data from json files. All this plugin does is deleting `window.__INITIAL_STATE__` in `appShellPath` html, telling gridsome to fetch data from json files. You should define app shell behavior in `service-worker.js`.
+As for gridsome, it checks `window.__INITIAL_STATE__` for data (mostly page query results), falling back to fetch data from json files. All this plugin does are disabling [client side hydration](https://ssr.vuejs.org/guide/hydration.html) in `appShellPath` html, and deleting `window.__INITIAL_STATE__` in `appShellPath` html to tell gridsome to fetch data from json files. You should define app shell behavior in `service-worker.js`.
 
 ### name
 
