@@ -55,7 +55,7 @@ function Plugin (api, options) {
     const workboxBuildFunc = workboxBuildModule[options.workboxPluginMode]
     const { count, size } = await workboxBuildFunc(workboxConfig)
     // eslint-disable-next-line no-console
-    console.log(`Precache ${count} files, totaling ${size} bytes.`)
+    console.log(`[PWA] Precache ${count} files, totaling ${size} bytes.`)
   })
 
   api.configureServer(app => {
