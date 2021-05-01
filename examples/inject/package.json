@@ -9,7 +9,7 @@
   "dependencies": {
     "@allanchain/gridsome-plugin-pwa": "link:../..",
     "@gridsome/transformer-remark": "^0.6.4",
-    "gridsome": "^0.7.0",
+    "gridsome": "gridsome/gridsome#workspace=gridsome",
     "register-service-worker": "^1.6.2"
   },
   "devDependencies": {

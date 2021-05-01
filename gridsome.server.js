@@ -1,23 +1,20 @@
 const path = require('path')
+
+const handleManifestAndClient = async (api, options) => {
+  const { parseIconAndManifest } = require('./lib/parseIconAndManifest')
+  const { manifest, clientOptions } = await parseIconAndManifest(
+    api._app, options
+  )
+  api.setClientOptions({
+    ...options,
+    ...clientOptions,
+    publicPath: api.config.publicPath
+  })
+  return manifest
+}
+
 function Plugin (api, options) {
   options = Object.assign({ name: api.config.siteName }, options)
-
-  let manifest, clientOptions
-  const { parseIconAndManifest } = require('./lib/parseIconAndManifest')
-  // Ensure set client option before generate temporary code
-  api._app.hooks.beforeBootstrap.tapPromise(
-    'GridsomePWAParse',
-    async () => {
-      ({ manifest, clientOptions } = await parseIconAndManifest(
-        api._app, options
-      ))
-      api.setClientOptions({
-        ...options,
-        ...clientOptions,
-        publicPath: api.config.publicPath
-      })
-    }
-  )
 
   // shared between webpack and workbox config
   let workboxConfig, compileOptions
@@ -30,10 +27,11 @@ function Plugin (api, options) {
     ))
   }
 
-  api.chainWebpack((webpackConfig, { isServer, isProd }) => {
+  api.chainWebpack(async (webpackConfig, { isServer, isProd }) => {
     if (isServer) return
 
     const ManifestPlugin = require('./lib/manifestPlugin')
+    const manifest = await handleManifestAndClient(api, options)
     webpackConfig
       .plugin('pwa-manifest')
       .use(ManifestPlugin, [options.manifestPath, manifest])

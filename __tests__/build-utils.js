@@ -5,14 +5,16 @@ const { fork } = require('child_process')
 const resolveContext = name => path.join(__dirname, '..', 'examples', name)
 const useContext = name => {
   const cwd = process.cwd()
-  beforeAll(() => process.chdir(resolveContext(name)))
+  const context = resolveContext(name)
+  beforeAll(() => process.chdir(context))
   afterAll(() => process.chdir(cwd))
+  return context
 }
 const useBuild = (func) => (name, out) => {
-  useContext(name)
+  const context = useContext(name)
   beforeAll(func, 30000)
-  afterAll(() => fs.rmdirSync(out, { recursive: true }))
-  return (...file) => path.join(resolveContext(name), out, ...file)
+  afterAll(() => fs.rmdirSync(path.join(context, out), { recursive: true }))
+  return (...file) => path.join(context, out, ...file)
 }
 
 // using function `build` in jest produces strange error:
