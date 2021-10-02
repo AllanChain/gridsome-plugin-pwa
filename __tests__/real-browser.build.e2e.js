@@ -40,7 +40,7 @@ useTrueBuild('basic', 'gridsome')
 useTrueBuild('inject', 'dist')
 
 for (const configName in CONFIGS) {
-  describe(`${configName} in real browser`, async () => {
+  describe(`${configName} in real browser`, () => {
     useContext(CONFIGS[configName].name)
     const { directory = './' } = CONFIGS[configName]
     const browserFixture = useBrowser(directory, port)
