@@ -98,7 +98,7 @@ You can also checkout [example gridsome app](examples/basic/gridsome.config.js).
   msTileColor: '#00a672',
   workboxOptions: {
     cacheId: 'awesome-pwa',
-    globPatterns: ['assets/@(js|css)/*', 'index.html'],
+    globPatterns: ['assets/css/*', '*.js', 'index.html'],
     skipWaiting: true
   }
 }
@@ -111,7 +111,7 @@ You can also checkout [example gridsome app](examples/basic/gridsome.config.js).
   workboxPluginMode: 'injectManifest',
   workboxOptions: {
     swSrc: './src/service-worker.js',
-    globPatterns: ['assets/@(js|css)/*', 'index.html']
+    globPatterns: ['assets/css/*', '*.js', 'index.html']
   }
 }
 ```
@@ -203,7 +203,7 @@ Default:
 {
   modifyURLPrefix: { '': config.publicPath },
   globDirectory: config.outputDir,
-  globPatterns: ['assets/@(js|css)/*'],
+  globPatterns: ['assets/css/*', '*.js'],
   swDest: path.join(config.outputDir, 'service-worker.js')
   sourcemap: false, // if generateSW
   cacheId: config.siteName // if generateSW
@@ -233,7 +233,7 @@ For example:
   {
     appShellPath: 'offline/index.html',
     workboxOptions: {
-      globPatterns: ['assets/@(js|css)/*', 'offline/index.html'],
+      globPatterns: ['assets/css/*', '*.js', 'offline/index.html'],
       navigateFallback: '/gridsome/offline/index.html',
       navigateFallbackAllowlist: [/\/$/]
     }

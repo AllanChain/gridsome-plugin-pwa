@@ -13,7 +13,7 @@ describe('sevice worker', () => {
   })
   it('splits chunk', () => {
     expect(swContent).toMatch('importScripts')
-    expect(fs.existsSync(dist('assets', 'js', 'sw-lib.js'))).toBe(true)
+    expect(fs.existsSync(dist('sw-lib.js'))).toBe(true)
   })
   it('includes precache and navigation route', () => {
     expect(swContent.match(/"\/offline\/index\.html"/g)).toHaveLength(2)

@@ -41,7 +41,7 @@ module.exports = {
         appShellPath: 'offline/index.html',
         workboxOptions: {
           cacheId: 'awesome-pwa',
-          globPatterns: ['assets/@(js|css)/*', 'offline/index.html'],
+          globPatterns: ['assets/css/*', '*.js', 'offline/index.html'],
           navigateFallback: '/gridsome/offline/index.html',
           navigateFallbackAllowlist: [/\/$/],
           skipWaiting: true

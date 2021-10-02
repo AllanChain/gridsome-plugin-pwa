@@ -10,7 +10,7 @@ module.exports = {
         workboxPluginMode: 'injectManifest',
         workboxOptions: {
           swSrc: './src/service-worker.js',
-          globPatterns: ['assets/@(js|css)/*', 'offline/index.html']
+          globPatterns: ['assets/css/*', '*.js', 'offline/index.html']
         },
         workboxCompileSrc: [
           new webpack.DefinePlugin({

@@ -57,8 +57,8 @@ describe('sevice worker', () => {
   it('does configured ignore', () => {
     expect(swContent).not.toMatch('manifest.json')
   })
-  it('includes prefetch assets', () => {
-    expect(swContent).toMatch('/gridsome/assets/js/app')
+  it('includes precache assets', () => {
+    expect(swContent).toMatch('/gridsome/app')
     expect(swContent).toMatch('/gridsome/offline/index.html')
   })
   it('uses skip waiting', () => {
