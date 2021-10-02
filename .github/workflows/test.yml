@@ -23,13 +23,12 @@ jobs:
       with:
         path: |
           .yarn/cache
-          **/node_modules
         key: node-${{ hashFiles('yarn.lock') }}
-        restore-keys: |
-          node-
     - name: Install and Link Packages
       run: |
-        yarn install --immutable --check-cache
+        yarn install
+      env:
+          YARN_CHECKSUM_BEHAVIOR: update
     - name: Run Tests
       run: yarn test
     - name: Upload Coverage
