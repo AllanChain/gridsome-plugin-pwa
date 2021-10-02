@@ -22,7 +22,7 @@ beforeAll(() => {
       // Remove color control code
       /* eslint-disable-next-line no-control-regex */
       data = data.replace(/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]/g, '')
-      const result = data.match(/Local: *(http:\/\/localhost:\d+)/)
+      const result = data.match(/Project is running at: (http:\/\/localhost:\d+)/)
       if (result !== null) {
         hostUrl = result[1]
         resolve()
