@@ -7,7 +7,7 @@
 
 :warning: **status: not so stable, contributions welcome**
 
-This is the docs for master. For older releases, check out
+This is the docs for **master (targeting upcoming gridsome@0.8)**. For older releases, checkout
 [v0.3.0](https://github.com/AllanChain/gridsome-plugin-pwa/blob/v0.3.0/README.md),
 [v0.2.5](https://github.com/AllanChain/gridsome-plugin-pwa/blob/v0.2.5/README.md)
 
