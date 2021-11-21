@@ -45,7 +45,7 @@
     "workbox-build": "^6.3.0"
   },
   "peerDependencies": {
-    "gridsome": "^0.7.0",
-    "webpack": "^4.40.0"
+    "gridsome": "^0.7.23",
+    "webpack": "^5.55.1"
   }
 }
