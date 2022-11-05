@@ -10108,8 +10108,8 @@ fsevents@^1.2.7:
   linkType: hard
 
 "lighthouse@npm:^9.6.7":
-  version: 9.6.7
-  resolution: "lighthouse@npm:9.6.7"
+  version: 9.6.8
+  resolution: "lighthouse@npm:9.6.8"
   dependencies:
     "@sentry/node": ^6.17.4
     axe-core: 4.4.1
@@ -10142,7 +10142,7 @@ fsevents@^1.2.7:
     chrome-debug: lighthouse-core/scripts/manual-chrome-launcher.js
     lighthouse: lighthouse-cli/index.js
     smokehouse: lighthouse-cli/test/smokehouse/frontends/smokehouse-bin.js
-  checksum: f5e71e087281521b13380c239c92551abb4a6bdd62e9a5c2de5fe1f4c7afe7fb515ae1ed764427266cdc0e6a2cb9cbf8630428bc0c28a2a5b2e4ddd5bce4c5f8
+  checksum: e32f250a066cfece9983ad3b8107b7b62dc4b296fd3eb9b135b8efe5ddbe5aea8c5f46c0021637278cf7fa08e91233b28b1dedb3985850e7752b9c9db73d8503
   languageName: node
   linkType: hard
 
