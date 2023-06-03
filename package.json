@@ -42,7 +42,7 @@
     "webpack": "^5.55.1"
   },
   "dependencies": {
-    "workbox-build": "^6.3.0"
+    "workbox-build": "^7.0.0"
   },
   "peerDependencies": {
     "gridsome": "^0.7.23",
